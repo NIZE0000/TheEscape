@@ -3,13 +3,13 @@
 #include <pch.h>
 
 // Private classes
-#include <texture.h>
+// #include <texture.h>
 // #include "header/class/Map.h"
 #include "Map.h"
 // #include "header/gui/MiniMap.h"
 #include "Player.h"
 // #include "header/Ghost.h"
-
+#include <stb_image.h>
 
 
 using namespace std;
@@ -39,8 +39,6 @@ float my;
 Player player;
 Map map;
 
-vector<Texture2D> grounds, walls; 
-Texture2D ground;
 
 
 void init_opengl(GLFWwindow* wnd)
@@ -173,6 +171,13 @@ void render(GLFWwindow* wnd)
 	set_3D_projection();
 
 	glPushMatrix();
+
+	int width, height, nrChannels;
+    unsigned char *image = stbi_load("ground.jpg", &width, &height, &nrChannels, 0);
+    if (image)
+    {
+        std::cout << "load" << std::endl;
+    }
 	
 
 	//camera
@@ -182,14 +187,6 @@ void render(GLFWwindow* wnd)
 
 	map.render();
 	// ghost.render();
-
-	// Load image
-    int w, h, nrChannels;
-    unsigned char* image = stbi_load("ground.jpg", &w, &h, &nrChannels, 0);
-    if (image)
-    {
-        std::cout<<"yes"<<std::endl;    
-    }
 	
 	glPopMatrix();
 

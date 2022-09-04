@@ -6,8 +6,9 @@
  */
 
 #include "Map.h"
+#include "resource_manager.h"
 #include "texture.h"
-#include <glm/vec3.hpp>
+
 #include <pch.h>
 
 // vector<Texture2D> grounds, walls;
@@ -18,7 +19,12 @@ Map::Map()
 	// TODO Auto-generated constructor stub
 
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
-	this->wallHeight = 50;
+	this->wallHeight = 100;
+
+	// ResourceManager::LoadTexture("./ground.jpg", GL_FALSE, "ground");
+	// Texture2D ground = ResourceManager::GetTexture("ground");
+	
+
 }
 
 Map::~Map()
@@ -30,28 +36,21 @@ void Map::render()
 {
 	glPushMatrix();
 
-	Texture2D ground;
-
-	ground.Generate("ground.jpg", this->grid, this->grid);
-
-
 	// ground render
 	glColor3f(0.5, 0.4, 0.3);
 	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord3f(0*1/6, 0.0, 6*1/6);
+	glTexCoord3f(0 * 1 / 6, 0.0, 6 * 1 / 6);
 	glVertex3f(-256.0, 0.0, 256.0);
-	
-	glTexCoord3f(6*1/6, 0.0, 6*1/6);
+
+	glTexCoord3f(6 * 1 / 6, 0.0, 6 * 1 / 6);
 	glVertex3f(256.0, 0.0, 256.0);
 
-	glTexCoord3f(0*1/6, 0.0, 0*1/6);
+	glTexCoord3f(0 * 1 / 6, 0.0, 0 * 1 / 6);
 	glVertex3f(-256.0, 0.0, -256.0);
-	
-	glTexCoord3f(6*1/6, 0.0, 0*1/6);
+
+	glTexCoord3f(6 * 1 / 6, 0.0, 0 * 1 / 6);
 	glVertex3f(256.0, 0.0, -256.0);
 	glEnd();
-
-	
 
 	// wall
 	glColor3f(0.5, 0.2, 0.1);
