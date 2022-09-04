@@ -1,0 +1,3 @@
+/home/Nice/GL/The Escape/build/CMakeFiles/TheEscape.dir
+/home/Nice/GL/The Escape/build/CMakeFiles/edit_cache.dir
+/home/Nice/GL/The Escape/build/CMakeFiles/rebuild_cache.dir
