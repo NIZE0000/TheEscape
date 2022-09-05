@@ -6,9 +6,7 @@
  */
 
 #include "Map.h"
-#include "resource_manager.h"
 #include "texture.h"
-
 #include <pch.h>
 
 // vector<Texture2D> grounds, walls;
@@ -19,12 +17,9 @@ Map::Map()
 	// TODO Auto-generated constructor stub
 
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
-	this->wallHeight = 100;
-
-	// ResourceManager::LoadTexture("./ground.jpg", GL_FALSE, "ground");
-	// Texture2D ground = ResourceManager::GetTexture("ground");
-	
-
+	this->wallHeight = 50;
+	Texture2D ground;
+	ground.Generate("/home/Nice/GL/The Escape/src/ground.jpg", 512, 512);
 }
 
 Map::~Map()
@@ -36,21 +31,28 @@ void Map::render()
 {
 	glPushMatrix();
 
+	glPushAttrib(GL_TEXTURE_BIT);
+	glEnable(GL_TEXTURE_2D);
+	glColor4f(1.0, 1.0, 1.0, 1.0);
 	// ground render
-	glColor3f(0.5, 0.4, 0.3);
+	// glColor3f(0.5, 0.4, 0.3);
 	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord3f(0 * 1 / 6, 0.0, 6 * 1 / 6);
+
+	glTexCoord3f(0.0, 0.0, 0.0);
 	glVertex3f(-256.0, 0.0, 256.0);
 
-	glTexCoord3f(6 * 1 / 6, 0.0, 6 * 1 / 6);
+	glTexCoord3f(1.0, 0.0, 0.0);
 	glVertex3f(256.0, 0.0, 256.0);
 
-	glTexCoord3f(0 * 1 / 6, 0.0, 0 * 1 / 6);
+	glTexCoord3f(0.0, 0.0, 1.0);
 	glVertex3f(-256.0, 0.0, -256.0);
 
-	glTexCoord3f(6 * 1 / 6, 0.0, 0 * 1 / 6);
+	glTexCoord3f(1.0, 0.0, 1.0);
 	glVertex3f(256.0, 0.0, -256.0);
 	glEnd();
+
+	glPopAttrib();
+
 
 	// wall
 	glColor3f(0.5, 0.2, 0.1);

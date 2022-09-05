@@ -194,12 +194,13 @@ void render(GLFWwindow* wnd)
 	//2D section
 	set_2D_projection();
 	// minimap.render();
-	// glBegin(GL_TRIANGLE_STRIP);
-	// 	glVertex3f( 0.0, 0.0, 0.0);
-	// 	glVertex3f(SCREEN_WIDTH/8.0, 0.0, 0.0);
-	// 	glVertex3f( 0.0, SCREEN_WIDTH/6.0, 0.0);
-	// 	glVertex3f( SCREEN_WIDTH/8.0, SCREEN_WIDTH/6.0, 0.0);
-	// glEnd();
+	glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f( 0.0, 0.0, 0.0);
+		glVertex3f(SCREEN_WIDTH/8.0, 0.0, 0.0);
+		glVertex3f( 0.0, SCREEN_WIDTH/6.0, 0.0);
+		glVertex3f( SCREEN_WIDTH/8.0, SCREEN_WIDTH/6.0, 0.0);
+	glEnd();
+	
 
 
 	glfwSwapBuffers(wnd);

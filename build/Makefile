@@ -225,30 +225,6 @@ src/pch.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheEscape.dir/build.make CMakeFiles/TheEscape.dir/src/pch.cpp.s
 .PHONY : src/pch.cpp.s
 
-src/resource_manager.o: src/resource_manager.cpp.o
-.PHONY : src/resource_manager.o
-
-# target to build an object file
-src/resource_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheEscape.dir/build.make CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o
-.PHONY : src/resource_manager.cpp.o
-
-src/resource_manager.i: src/resource_manager.cpp.i
-.PHONY : src/resource_manager.i
-
-# target to preprocess a source file
-src/resource_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheEscape.dir/build.make CMakeFiles/TheEscape.dir/src/resource_manager.cpp.i
-.PHONY : src/resource_manager.cpp.i
-
-src/resource_manager.s: src/resource_manager.cpp.s
-.PHONY : src/resource_manager.s
-
-# target to generate assembly for a file
-src/resource_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheEscape.dir/build.make CMakeFiles/TheEscape.dir/src/resource_manager.cpp.s
-.PHONY : src/resource_manager.cpp.s
-
 src/stb_image.o: src/stb_image.cpp.o
 .PHONY : src/stb_image.o
 
@@ -318,9 +294,6 @@ help:
 	@echo "... src/pch.o"
 	@echo "... src/pch.i"
 	@echo "... src/pch.s"
-	@echo "... src/resource_manager.o"
-	@echo "... src/resource_manager.i"
-	@echo "... src/resource_manager.s"
 	@echo "... src/stb_image.o"
 	@echo "... src/stb_image.i"
 	@echo "... src/stb_image.s"

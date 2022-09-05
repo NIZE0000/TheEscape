@@ -125,24 +125,10 @@ CMakeFiles/TheEscape.dir/src/pch.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TheEscape.dir/src/pch.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/Nice/GL/The Escape/src/pch.cpp" -o CMakeFiles/TheEscape.dir/src/pch.cpp.s
 
-CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o: CMakeFiles/TheEscape.dir/flags.make
-CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o: ../src/resource_manager.cpp
-CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o: CMakeFiles/TheEscape.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o -MF CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o.d -o CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o -c "/home/Nice/GL/The Escape/src/resource_manager.cpp"
-
-CMakeFiles/TheEscape.dir/src/resource_manager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TheEscape.dir/src/resource_manager.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/Nice/GL/The Escape/src/resource_manager.cpp" > CMakeFiles/TheEscape.dir/src/resource_manager.cpp.i
-
-CMakeFiles/TheEscape.dir/src/resource_manager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TheEscape.dir/src/resource_manager.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/Nice/GL/The Escape/src/resource_manager.cpp" -o CMakeFiles/TheEscape.dir/src/resource_manager.cpp.s
-
 CMakeFiles/TheEscape.dir/src/stb_image.cpp.o: CMakeFiles/TheEscape.dir/flags.make
 CMakeFiles/TheEscape.dir/src/stb_image.cpp.o: ../src/stb_image.cpp
 CMakeFiles/TheEscape.dir/src/stb_image.cpp.o: CMakeFiles/TheEscape.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TheEscape.dir/src/stb_image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TheEscape.dir/src/stb_image.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TheEscape.dir/src/stb_image.cpp.o -MF CMakeFiles/TheEscape.dir/src/stb_image.cpp.o.d -o CMakeFiles/TheEscape.dir/src/stb_image.cpp.o -c "/home/Nice/GL/The Escape/src/stb_image.cpp"
 
 CMakeFiles/TheEscape.dir/src/stb_image.cpp.i: cmake_force
@@ -156,7 +142,7 @@ CMakeFiles/TheEscape.dir/src/stb_image.cpp.s: cmake_force
 CMakeFiles/TheEscape.dir/src/texture.cpp.o: CMakeFiles/TheEscape.dir/flags.make
 CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp
 CMakeFiles/TheEscape.dir/src/texture.cpp.o: CMakeFiles/TheEscape.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TheEscape.dir/src/texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TheEscape.dir/src/texture.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TheEscape.dir/src/texture.cpp.o -MF CMakeFiles/TheEscape.dir/src/texture.cpp.o.d -o CMakeFiles/TheEscape.dir/src/texture.cpp.o -c "/home/Nice/GL/The Escape/src/texture.cpp"
 
 CMakeFiles/TheEscape.dir/src/texture.cpp.i: cmake_force
@@ -173,7 +159,6 @@ TheEscape_OBJECTS = \
 "CMakeFiles/TheEscape.dir/src/Player.cpp.o" \
 "CMakeFiles/TheEscape.dir/src/main.cpp.o" \
 "CMakeFiles/TheEscape.dir/src/pch.cpp.o" \
-"CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o" \
 "CMakeFiles/TheEscape.dir/src/stb_image.cpp.o" \
 "CMakeFiles/TheEscape.dir/src/texture.cpp.o"
 
@@ -184,12 +169,11 @@ TheEscape: CMakeFiles/TheEscape.dir/src/Map.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/Player.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/main.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/pch.cpp.o
-TheEscape: CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/stb_image.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/texture.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/build.make
 TheEscape: CMakeFiles/TheEscape.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable TheEscape"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable TheEscape"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TheEscape.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

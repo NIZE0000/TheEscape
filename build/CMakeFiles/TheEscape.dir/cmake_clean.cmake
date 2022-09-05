@@ -7,8 +7,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/TheEscape.dir/src/main.cpp.o.d"
   "CMakeFiles/TheEscape.dir/src/pch.cpp.o"
   "CMakeFiles/TheEscape.dir/src/pch.cpp.o.d"
-  "CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o"
-  "CMakeFiles/TheEscape.dir/src/resource_manager.cpp.o.d"
   "CMakeFiles/TheEscape.dir/src/stb_image.cpp.o"
   "CMakeFiles/TheEscape.dir/src/stb_image.cpp.o.d"
   "CMakeFiles/TheEscape.dir/src/texture.cpp.o"
