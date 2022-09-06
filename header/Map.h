@@ -8,6 +8,7 @@
 #ifndef SRC_MAP_H_
 #define SRC_MAP_H_
 
+#include <texture.h>
 
 class Map {
 public:
@@ -17,6 +18,8 @@ public:
 private:
 	float grid;
 	float wallHeight;
+	Texture2D ground;
+	Texture2D wall;
 	void drawWall(float point[][2]);
 	void drawGround(float point[][2]);
 

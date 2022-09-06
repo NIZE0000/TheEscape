@@ -155,5 +155,5 @@ CMakeFiles/TheEscape.dir/src/main.cpp.o: \
  /usr/include/c++/12/tr1/poly_laguerre.tcc \
  /usr/include/c++/12/tr1/riemann_zeta.tcc \
  /home/Nice/GL/The\ Escape/header/Map.h \
- /home/Nice/GL/The\ Escape/header/Player.h \
- /home/Nice/GL/The\ Escape/external/stb/stb_image.h
+ /home/Nice/GL/The\ Escape/header/texture.h \
+ /home/Nice/GL/The\ Escape/header/Player.h

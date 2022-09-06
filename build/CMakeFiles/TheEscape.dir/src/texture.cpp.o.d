@@ -1,6 +1,6 @@
 CMakeFiles/TheEscape.dir/src/texture.cpp.o: \
  /home/Nice/GL/The\ Escape/src/texture.cpp /usr/include/stdc-predef.h \
- /home/Nice/GL/The\ Escape/src/texture.h \
+ /home/Nice/GL/The\ Escape/header/texture.h \
  /home/Nice/GL/The\ Escape/header/pch.h /usr/include/c++/12/iostream \
  /usr/include/c++/12/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \

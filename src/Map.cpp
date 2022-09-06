@@ -6,56 +6,55 @@
  */
 
 #include "Map.h"
-#include "texture.h"
 #include <pch.h>
-
-// vector<Texture2D> grounds, walls;
-// Texture2D ground;
 
 Map::Map()
 {
 	// TODO Auto-generated constructor stub
 
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
-	this->wallHeight = 50;
-	Texture2D ground;
-	ground.Generate("/home/Nice/GL/The Escape/src/ground.jpg", 512, 512);
+	this->wallHeight = 100;
+
 }
 
 Map::~Map()
 {
 	// TODO Auto-generated destructor stub
+	this->ground.Delete();
+	// this->wall.Delete();
 }
 
 void Map::render()
 {
+	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
+	this->ground.Bind();
+	// this->ground.Delete();
+	// ground render
 	glPushMatrix();
 
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-	// ground render
-	// glColor3f(0.5, 0.4, 0.3);
+	
+	glColor3f(0.5, 0.5, 0.5);
 	glBegin(GL_TRIANGLE_STRIP);
-
-	glTexCoord3f(0.0, 0.0, 0.0);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(-256.0, 0.0, 256.0);
-
-	glTexCoord3f(1.0, 0.0, 0.0);
+	glTexCoord2f(6.0, 0.0);
 	glVertex3f(256.0, 0.0, 256.0);
-
-	glTexCoord3f(0.0, 0.0, 1.0);
+	glTexCoord2f(0.0, 6.0);
 	glVertex3f(-256.0, 0.0, -256.0);
-
-	glTexCoord3f(1.0, 0.0, 1.0);
+	glTexCoord2f(6.0, 6.0);
 	glVertex3f(256.0, 0.0, -256.0);
 	glEnd();
 
 	glPopAttrib();
 
+	this->wall.Generate("/home/Nice/GL/The Escape/assets/textures/stone-wall.png", 512, 512);
+	this->wall.Bind();
+	// this->wall.Delete();
 
-	// wall
-	glColor3f(0.5, 0.2, 0.1);
+	// wall render
+	glColor3f(0.5, 0.5, 0.5);
 
 	float walls[][2][2] = {
 		{{-3, 3}, {3, 3}},
@@ -92,19 +91,36 @@ void Map::render()
 
 void Map::drawWall(float point[][2])
 {
+	float dif = abs((point[0][0]-point[1][0]) + (point[0][1]-point[1][1]));
+	// std::cout<<dif<<std::endl; // debug
+
+	glPushAttrib(GL_TEXTURE_BIT);
+	glEnable(GL_TEXTURE_2D);
+
 	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(point[0][0] * this->grid, 0, point[0][1] * this->grid);
+	glTexCoord2f(1.0 * dif, 0.0);
 	glVertex3f(point[1][0] * this->grid, 0, point[1][1] * this->grid);
+	glTexCoord2f(0.0, 1.0 *dif);
 	glVertex3f(point[0][0] * this->grid, this->wallHeight, point[0][1] * this->grid);
+	glTexCoord2f(1.0*dif, 1.0*dif);
 	glVertex3f(point[1][0] * this->grid, this->wallHeight, point[1][1] * this->grid);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(point[1][0] * this->grid, 0, point[1][1] * this->grid);
+	glTexCoord2f(1.0*dif, 0.0);
 	glVertex3f(point[0][0] * this->grid, 0, point[0][1] * this->grid);
+	glTexCoord2f(0.0, 1.0*dif);
 	glVertex3f(point[1][0] * this->grid, this->wallHeight, point[1][1] * this->grid);
+	glTexCoord2f(1.0*dif, 1.0*dif);
 	glVertex3f(point[0][0] * this->grid, this->wallHeight, point[0][1] * this->grid);
 	glEnd();
+
+	glPopAttrib();
+
 }
 
 void Map::drawGround(float point[][2])

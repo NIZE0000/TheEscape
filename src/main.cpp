@@ -3,13 +3,11 @@
 #include <pch.h>
 
 // Private classes
-// #include <texture.h>
 // #include "header/class/Map.h"
 #include "Map.h"
 // #include "header/gui/MiniMap.h"
 #include "Player.h"
 // #include "header/Ghost.h"
-#include <stb_image.h>
 
 
 using namespace std;
@@ -172,35 +170,37 @@ void render(GLFWwindow* wnd)
 
 	glPushMatrix();
 
-	int width, height, nrChannels;
-    unsigned char *image = stbi_load("ground.jpg", &width, &height, &nrChannels, 0);
-    if (image)
-    {
-        std::cout << "load" << std::endl;
-    }
-	
-
 	//camera
-	glTranslatef(0.0, -0.0, -456.0);
-	glRotatef(50.0, 1.0, 0.0, 0.0);
-	glColor4f(1.0, 1.0, 1.0, 1.0);
+	glTranslatef(0.0, -10.0, -512.0);
+	// glRotatef(40.0, 0.0, 1.0, 0.0);
+	glRotatef(40.0, 1.0, 0.0, 0.0);
+
 
 	map.render();
 	// ghost.render();
 	
 	glPopMatrix();
 
+	// glPushMatrix();
+
+	glColor4f(1.0, 1.0, 1.0, 1.0);
 
 	//2D section
 	set_2D_projection();
 	// minimap.render();
-	glBegin(GL_TRIANGLE_STRIP);
-		glVertex3f( 0.0, 0.0, 0.0);
-		glVertex3f(SCREEN_WIDTH/8.0, 0.0, 0.0);
-		glVertex3f( 0.0, SCREEN_WIDTH/6.0, 0.0);
-		glVertex3f( SCREEN_WIDTH/8.0, SCREEN_WIDTH/6.0, 0.0);
-	glEnd();
+	// glBegin(GL_TRIANGLE_STRIP);
+	// 	glVertex3f( 0.0, 0.0, 0.0);
+	// 	glVertex3f(SCREEN_WIDTH/8.0, 0.0, 0.0);
+	// 	glVertex3f( 0.0, SCREEN_WIDTH/6.0, 0.0);
+	// 	glVertex3f( SCREEN_WIDTH/8.0, SCREEN_WIDTH/6.0, 0.0);
+	// glEnd();
+
 	
+	glPushMatrix();
+
+
+	glPopAttrib();
+	// glPopMatrix();
 
 
 	glfwSwapBuffers(wnd);
@@ -231,8 +231,7 @@ int main()
 	init_opengl(gl_wnd);
 	srand(time(NULL));
 
-	// grounds.push(ground);
-
+	
 	// Enter main loop
 	run(gl_wnd);
 

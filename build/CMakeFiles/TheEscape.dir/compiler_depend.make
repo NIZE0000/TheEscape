@@ -4,7 +4,7 @@
 CMakeFiles/TheEscape.dir/src/Map.cpp.o: ../src/Map.cpp \
   /usr/include/stdc-predef.h \
   ../header/Map.h \
-  ../src/texture.h \
+  ../header/texture.h \
   ../header/pch.h \
   /usr/include/c++/12/iostream \
   /usr/include/c++/12/x86_64-redhat-linux/bits/c++config.h \
@@ -449,8 +449,8 @@ CMakeFiles/TheEscape.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/12/tr1/poly_laguerre.tcc \
   /usr/include/c++/12/tr1/riemann_zeta.tcc \
   ../header/Map.h \
-  ../header/Player.h \
-  ../external/stb/stb_image.h
+  ../header/texture.h \
+  ../header/Player.h
 
 CMakeFiles/TheEscape.dir/src/pch.cpp.o: ../src/pch.cpp \
   /usr/include/stdc-predef.h \
@@ -806,7 +806,7 @@ CMakeFiles/TheEscape.dir/src/stb_image.cpp.o: ../src/stb_image.cpp \
 
 CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
   /usr/include/stdc-predef.h \
-  ../src/texture.h \
+  ../header/texture.h \
   ../header/pch.h \
   /usr/include/c++/12/iostream \
   /usr/include/c++/12/x86_64-redhat-linux/bits/c++config.h \
@@ -1260,25 +1260,17 @@ CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
 
 /usr/include/bits/stdint-intn.h:
 
+/usr/include/sched.h:
+
+/usr/include/c++/12/iostream:
+
 /usr/include/bits/mathcalls.h:
 
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/bits/types/clock_t.h:
 
-/usr/include/c++/12/iostream:
-
-/usr/include/sched.h:
-
-/usr/include/c++/12/bits/ostream_insert.h:
-
-/usr/include/strings.h:
-
-/usr/include/c++/12/math.h:
-
-/usr/include/c++/12/string:
-
-/usr/include/c++/12/ext/atomicity.h:
+../header/texture.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/12/include/stdint.h:
 
@@ -1324,13 +1316,21 @@ CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
 
 /usr/include/bits/pthreadtypes.h:
 
-../src/Map.cpp:
-
-/usr/include/c++/12/x86_64-redhat-linux/bits/c++allocator.h:
-
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/12/bits/move.h:
+
+/usr/include/c++/12/x86_64-redhat-linux/bits/c++allocator.h:
+
+../src/Map.cpp:
+
+/usr/include/strings.h:
+
+/usr/include/c++/12/math.h:
+
+/usr/include/c++/12/string:
+
+/usr/include/c++/12/ext/atomicity.h:
 
 /usr/include/c++/12/iosfwd:
 
@@ -1398,9 +1398,9 @@ CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
 
 /usr/include/ctype.h:
 
-../header/Map.h:
-
 /usr/include/bits/types/__locale_t.h:
+
+../header/Map.h:
 
 /usr/include/c++/12/bits/stl_algobase.h:
 
@@ -1416,9 +1416,9 @@ CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
 
 /usr/include/bits/types/time_t.h:
 
-/usr/include/bits/types/struct_itimerspec.h:
-
 /usr/include/c++/12/ios:
+
+/usr/include/bits/types/struct_itimerspec.h:
 
 /usr/include/bits/struct_rwlock.h:
 
@@ -1478,13 +1478,13 @@ CMakeFiles/TheEscape.dir/src/texture.cpp.o: ../src/texture.cpp \
 
 /usr/include/c++/12/x86_64-redhat-linux/bits/atomic_word.h:
 
-../src/texture.h:
-
 /usr/include/sys/single_threaded.h:
 
 /usr/include/c++/12/bits/allocator.h:
 
 /usr/include/c++/12/bits/cpp_type_traits.h:
+
+/usr/include/c++/12/bits/ostream_insert.h:
 
 /usr/include/bits/types/__FILE.h:
 

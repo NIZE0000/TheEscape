@@ -5,7 +5,7 @@ CMakeFiles/TheEscape.dir/src/Map.cpp.o
  /home/Nice/GL/The Escape/src/Map.cpp
  /usr/include/stdc-predef.h
  /home/Nice/GL/The Escape/header/Map.h
- /home/Nice/GL/The Escape/src/texture.h
+ /home/Nice/GL/The Escape/header/texture.h
  /home/Nice/GL/The Escape/header/pch.h
  /usr/include/c++/12/iostream
  /usr/include/c++/12/x86_64-redhat-linux/bits/c++config.h
@@ -452,8 +452,8 @@ CMakeFiles/TheEscape.dir/src/main.cpp.o
  /usr/include/c++/12/tr1/poly_laguerre.tcc
  /usr/include/c++/12/tr1/riemann_zeta.tcc
  /home/Nice/GL/The Escape/header/Map.h
+ /home/Nice/GL/The Escape/header/texture.h
  /home/Nice/GL/The Escape/header/Player.h
- /home/Nice/GL/The Escape/external/stb/stb_image.h
 
 CMakeFiles/TheEscape.dir/src/pch.cpp.o
  /home/Nice/GL/The Escape/src/pch.cpp
@@ -812,7 +812,7 @@ CMakeFiles/TheEscape.dir/src/stb_image.cpp.o
 CMakeFiles/TheEscape.dir/src/texture.cpp.o
  /home/Nice/GL/The Escape/src/texture.cpp
  /usr/include/stdc-predef.h
- /home/Nice/GL/The Escape/src/texture.h
+ /home/Nice/GL/The Escape/header/texture.h
  /home/Nice/GL/The Escape/header/pch.h
  /usr/include/c++/12/iostream
  /usr/include/c++/12/x86_64-redhat-linux/bits/c++config.h
