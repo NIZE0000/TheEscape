@@ -4,9 +4,9 @@
 
 // Private classes
 // #include "header/class/Map.h"
-#include "Map.h"
+#include <Map.h>
 // #include "header/gui/MiniMap.h"
-#include "Player.h"
+#include <Player.h>
 // #include "header/Ghost.h"
 
 
