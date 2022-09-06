@@ -417,3 +417,121 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_3e527/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_3e527.dir/build.make CMakeFiles/cmTC_3e527.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3e527.dir/CheckIncludeFile.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTC_3e527.dir/CheckIncludeFile.c.o -c "/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_3e527
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3e527.dir/link.txt --verbose=1
+/usr/bin/gcc CMakeFiles/cmTC_3e527.dir/CheckIncludeFile.c.o -o cmTC_3e527 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_69f58/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_69f58.dir/build.make CMakeFiles/cmTC_69f58.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_69f58.dir/src.c.o
+/usr/bin/gcc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_69f58.dir/src.c.o -c "/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp/src.c"
+Linking C executable cmTC_69f58
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_69f58.dir/link.txt --verbose=1
+/usr/bin/gcc CMakeFiles/cmTC_69f58.dir/src.c.o -o cmTC_69f58 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function XOpenDisplay exists in the /usr/lib64/libX11.so;/usr/lib64/libXext.so passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b24a9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b24a9.dir/build.make CMakeFiles/cmTC_b24a9.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b24a9.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -o CMakeFiles/cmTC_b24a9.dir/CheckFunctionExists.c.o -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b24a9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b24a9.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay CMakeFiles/cmTC_b24a9.dir/CheckFunctionExists.c.o -o cmTC_b24a9  /usr/lib64/libX11.so /usr/lib64/libXext.so 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function gethostbyname exists passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_c300d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c300d.dir/build.make CMakeFiles/cmTC_c300d.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c300d.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=gethostbyname -o CMakeFiles/cmTC_c300d.dir/CheckFunctionExists.c.o -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c300d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c300d.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=gethostbyname CMakeFiles/cmTC_c300d.dir/CheckFunctionExists.c.o -o cmTC_c300d 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function connect exists passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_077b0/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_077b0.dir/build.make CMakeFiles/cmTC_077b0.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_077b0.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=connect -o CMakeFiles/cmTC_077b0.dir/CheckFunctionExists.c.o -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_077b0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_077b0.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=connect CMakeFiles/cmTC_077b0.dir/CheckFunctionExists.c.o -o cmTC_077b0 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function remove exists passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_643a4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_643a4.dir/build.make CMakeFiles/cmTC_643a4.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_643a4.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=remove -o CMakeFiles/cmTC_643a4.dir/CheckFunctionExists.c.o -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_643a4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_643a4.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=remove CMakeFiles/cmTC_643a4.dir/CheckFunctionExists.c.o -o cmTC_643a4 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function shmat exists passed with the following output:
+Change Dir: /home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d341e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d341e.dir/build.make CMakeFiles/cmTC_d341e.dir/build
+gmake[1]: Entering directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d341e.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=shmat -o CMakeFiles/cmTC_d341e.dir/CheckFunctionExists.c.o -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d341e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d341e.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=shmat CMakeFiles/cmTC_d341e.dir/CheckFunctionExists.c.o -o cmTC_d341e 
+gmake[1]: Leaving directory '/home/Nice/GL/The Escape/build/CMakeFiles/CMakeTmp'
+
+
+

@@ -15,20 +15,29 @@ Map::Map()
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
 	this->wallHeight = 100;
 
+	float position[7][7][2] = {}; //for store all position in 1/6 grid
+
+	// for (int i = 0; i < count; i++)
+	// {
+	// 	/* code */
+	// }
+	 
+
+
 }
 
 Map::~Map()
 {
 	// TODO Auto-generated destructor stub
 	this->ground.Delete();
-	// this->wall.Delete();
+	this->wall.Delete();
 }
 
 void Map::render()
 {
 	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
 	this->ground.Bind();
-	// this->ground.Delete();
+	this->ground.Delete();
 	// ground render
 	glPushMatrix();
 
@@ -51,7 +60,7 @@ void Map::render()
 
 	this->wall.Generate("/home/Nice/GL/The Escape/assets/textures/stone-wall.png", 512, 512);
 	this->wall.Bind();
-	// this->wall.Delete();
+	this->wall.Delete();
 
 	// wall render
 	glColor3f(0.5, 0.5, 0.5);

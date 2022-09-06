@@ -5,7 +5,7 @@
  *      Author: Nice
  */
 
-#include "Player.h"
+#include <Player.h>
 
 Player::Player()
 {

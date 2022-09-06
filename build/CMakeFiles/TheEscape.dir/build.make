@@ -172,6 +172,10 @@ TheEscape: CMakeFiles/TheEscape.dir/src/pch.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/stb_image.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/src/texture.cpp.o
 TheEscape: CMakeFiles/TheEscape.dir/build.make
+TheEscape: external/glfw/src/libglfw3.a
+TheEscape: /usr/lib64/librt.a
+TheEscape: /usr/lib64/libm.so
+TheEscape: /usr/lib64/libX11.so
 TheEscape: CMakeFiles/TheEscape.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/Nice/GL/The Escape/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable TheEscape"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TheEscape.dir/link.txt --verbose=$(VERBOSE)

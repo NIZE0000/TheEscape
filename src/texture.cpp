@@ -39,7 +39,7 @@ void Texture2D::Generate(const GLchar *file, GLuint width, GLuint height)
     stbi_image_free(data);
     
     // bind texture
-    glBindTexture(GL_TEXTURE_2D, 0);
+    // glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture2D::Delete()
