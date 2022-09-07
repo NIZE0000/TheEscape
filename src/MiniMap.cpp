@@ -71,6 +71,7 @@ void MiniMap::drawMiniMap()
     };
     glTranslatef(grid * 3.0,grid * 3.0,0.0);
     glRotatef(-90.0,0.0,0.0,1.0);
+    glScalef(1.0,-1.0,0.0);
     for (int i = 0; i < sizeof(walls) / 16; i++)
     {
         float wall[][2] = {

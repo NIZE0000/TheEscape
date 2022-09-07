@@ -20,4 +20,14 @@ add_subdirectory(external/glfw)
 
 target_include_directories(TheEscape PUBLIC header external external/stb external/glm external/glfw/include  .)
 
+if (UNIX)
+	# Linux specific libraries
+	set(PLAT_SPEC_LIBS "dl")
+elseif (WIN32)
+	# Windows specific libraries
+	set(PLAT_SPEC_LIBS "")
+else ()
+	message(FATAL_ERROR "Platform is not supported!")
+endif ()
+
 target_link_libraries(TheEscape glfw GL dl ${PLAT_SPEC_LIBS})

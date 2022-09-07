@@ -46,7 +46,7 @@ void Map::render()
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
 	
-	glColor3f(0.5, 0.5, 0.5);
+	glColor3f(0.7, 0.7, 0.7);
 	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(0.0, 0.0);
 	glVertex3f(-256.0, 0.0, 256.0);
@@ -114,9 +114,9 @@ void Map::drawWall(float point[][2])
 	glVertex3f(point[0][0] * this->grid, 0, point[0][1] * this->grid);
 	glTexCoord2f(dif, 0.0);
 	glVertex3f(point[1][0] * this->grid, 0, point[1][1] * this->grid);
-	glTexCoord2f(0.0, dif);
+	glTexCoord2f(0.0, 1);
 	glVertex3f(point[0][0] * this->grid, this->wallHeight, point[0][1] * this->grid);
-	glTexCoord2f(dif, dif);
+	glTexCoord2f(dif, 1);
 	glVertex3f(point[1][0] * this->grid, this->wallHeight, point[1][1] * this->grid);
 	glEnd();
 
@@ -125,9 +125,9 @@ void Map::drawWall(float point[][2])
 	glVertex3f(point[1][0] * this->grid, 0, point[1][1] * this->grid);
 	glTexCoord2f(dif, 0.0);
 	glVertex3f(point[0][0] * this->grid, 0, point[0][1] * this->grid);
-	glTexCoord2f(0.0, dif);
+	glTexCoord2f(0.0,1);
 	glVertex3f(point[1][0] * this->grid, this->wallHeight, point[1][1] * this->grid);
-	glTexCoord2f(dif, dif);
+	glTexCoord2f(dif, 1);
 	glVertex3f(point[0][0] * this->grid, this->wallHeight, point[0][1] * this->grid);
 	glEnd();
 

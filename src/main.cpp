@@ -38,7 +38,7 @@ Player player;
 Map map;
 MiniMap minimap;
 
-// Camera camera;
+Camera camera;
 
 void init_opengl(GLFWwindow *wnd)
 {
@@ -111,8 +111,8 @@ static void on_key_callback(GLFWwindow *window, int key, int scancode, int actio
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-
-	// camera.ProcessKeyboard(key);
+	
+	camera.ProcessKeyboard(key);
 }
 
 static void on_resize_callback(GLFWwindow *window, int width, int height)
@@ -178,24 +178,24 @@ void render(GLFWwindow *wnd)
 	glPushMatrix();
 
 	// camera
-	glTranslatef(0.0, -10.0, -512.0);
-	glRotatef(30.0, 1.0, 0.0, 0.0);
-	glRotatef(40.0, 0.0, 1.0, 0.0);
+	glTranslatef(0.0, -50.0, 0.0);
+	// glTranslatef(0.0, -50.0, -550.0);
+	// glRotatef(60.0, 1.0, 0.0, 0.0);
+	// glRotatef(-90.0, 0.0, 1.0, 0.0);
 
+	camera.updateCamera();
 	map.render();
+	camera.render();
 	// ghost.render();
 
 	glPopMatrix();
 
-	// glPushMatrix();
 
 	// 2D section
+	glPushMatrix();
 	set_2D_projection();
 	minimap.render();
-
-
-	glPopAttrib();
-	
+	glPopMatrix();
 
 	glfwSwapBuffers(wnd);
 	glfwPollEvents();
