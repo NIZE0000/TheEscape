@@ -36,47 +36,47 @@ Player::~Player()
 	// TODO Auto-generated destructor stub
 }
 
-void Player::setPos(float x, float y, float z)
-{
-	this->pos[0] = x;
-	this->pos[1] = y;
-	this->pos[2] = z;
-}
-void Player::getPos(float *x, float *y, float *z)
-{
-	(*x) = this->pos[0];
-	(*y) = this->pos[1];
-	(*z) = this->pos[2];
-}
+// void Player::setPos(float x, float y, float z)
+// {
+// 	this->pos[0] = x;
+// 	this->pos[1] = y;
+// 	this->pos[2] = z;
+// }
+// void Player::getPos(float *x, float *y, float *z)
+// {
+// 	(*x) = this->pos[0];
+// 	(*y) = this->pos[1];
+// 	(*z) = this->pos[2];
+// }
 
-void Player::moveForward()
-{
-	this->pos[0] += this->moveSpeed[0] * this->dir[0];
-	// this->pos[1] += this->moveSpeed[1] * this->dir[1];
-	this->pos[2] += this->moveSpeed[2] * this->dir[2];
-}
-void Player::moveBackward()
-{
-	this->pos[0] -= this->moveSpeed[0] * this->dir[0];
-	// this->pos[1] -= this->moveSpeed[1] * this->dir[1];
-	this->pos[2] -= this->moveSpeed[2] * this->dir[2];
-}
-void Player::moveRight()
-{
-	this->pos[0] -= this->moveSpeed[0] * this->dir[0];
-}
-void Player::moveLeft()
-{
-	this->pos[0] += this->moveSpeed[0] * this->dir[0];
-	// this->pos[1] += this->moveSpeed[1] * this->dir[1];
-	// this->pos[2] += this->moveSpeed[2] * this->dir[2];
-}
+// void Player::moveForward()
+// {
+// 	this->pos[0] += this->moveSpeed[0] * this->dir[0];
+// 	// this->pos[1] += this->moveSpeed[1] * this->dir[1];
+// 	this->pos[2] += this->moveSpeed[2] * this->dir[2];
+// }
+// void Player::moveBackward()
+// {
+// 	this->pos[0] -= this->moveSpeed[0] * this->dir[0];
+// 	// this->pos[1] -= this->moveSpeed[1] * this->dir[1];
+// 	this->pos[2] -= this->moveSpeed[2] * this->dir[2];
+// }
+// void Player::moveRight()
+// {
+// 	this->pos[0] -= this->moveSpeed[0] * this->dir[0];
+// }
+// void Player::moveLeft()
+// {
+// 	this->pos[0] += this->moveSpeed[0] * this->dir[0];
+// 	// this->pos[1] += this->moveSpeed[1] * this->dir[1];
+// 	// this->pos[2] += this->moveSpeed[2] * this->dir[2];
+// }
 
-void Player::turnLeft()
-{
-	this->rot[1] += this->rotSpeed[1];
-}
-void Player::turnRigth()
-{
-	this->rot[1] -= this->rotSpeed[1];
-}
+// void Player::turnLeft()
+// {
+// 	this->rot[1] += this->rotSpeed[1];
+// }
+// void Player::turnRigth()
+// {
+// 	this->rot[1] -= this->rotSpeed[1];
+// }

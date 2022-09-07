@@ -1,8 +1,0 @@
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/zlibstatic.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/test.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/edit_cache.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/rebuild_cache.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/list_install_components.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/install.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/install/local.dir
-/home/Nice/GL/The Escape/external/assimp/contrib/zlib/build/default/CMakeFiles/install/strip.dir

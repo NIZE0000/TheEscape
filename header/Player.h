@@ -12,14 +12,14 @@ class Player {
 public:
 	Player();
 	virtual ~Player();
+
+	void checkMoveable();
+
 //	void render();
 	void setPos(float x, float y, float z);
 	void getPos(float *x, float *y, float *z);
 
-	void moveForward();
-	void moveBackward();
-	void moveLeft();
-	void moveRight();
+	void move();
 
 	void turnLeft();
 	void turnRigth();

@@ -1,52 +1,55 @@
 
-//Lib
+// Lib
 #include <pch.h>
 
 // Private classes
 // #include "header/class/Map.h"
 #include <Map.h>
-// #include "header/gui/MiniMap.h"
+#include <MiniMap.h>
 #include <Player.h>
 // #include "header/Ghost.h"
-
+#include <fps_camera.h>
+#include <camera.h>
 
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH	1024
-#define SCREEN_HEIGHT	512
-#define CANVAS_WIDTH	512
-#define CANVAS_HEIGHT	512
-
+#define SCREEN_WIDTH 512
+#define SCREEN_HEIGHT 512
+#define CANVAS_WIDTH 512
+#define CANVAS_HEIGHT 512
 
 // Function prototypes
-void init_opengl(GLFWwindow* wnd);
+void init_opengl(GLFWwindow *wnd);
 void set_3D_projection();
-static void on_error_callback(int error, const char* description);
-static void on_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-static void on_resize_callback(GLFWwindow* window, int width, int height);
-static void on_mouse_position_callback(GLFWwindow* window, double x, double y);
-static void on_mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-void run(GLFWwindow* wnd);
-void process_keys(GLFWwindow* wnd);
-void update(GLFWwindow* wnd);
-void render(GLFWwindow* wnd);
+static void on_error_callback(int error, const char *description);
+static void on_key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+static void on_resize_callback(GLFWwindow *window, int width, int height);
+static void on_mouse_position_callback(GLFWwindow *window, double x, double y);
+static void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
+void run(GLFWwindow *wnd);
+void process_keys(GLFWwindow *wnd);
+void update(GLFWwindow *wnd);
+void render(GLFWwindow *wnd);
 
 float mx;
 float my;
 Player player;
 Map map;
+MiniMap minimap;
 
+// Camera camera;
 
-
-void init_opengl(GLFWwindow* wnd)
+void init_opengl(GLFWwindow *wnd)
 {
-	
+
 	glfwMakeContextCurrent(wnd);
 	glfwSetKeyCallback(wnd, on_key_callback);
 	glfwSetWindowSizeCallback(wnd, on_resize_callback);
 	glfwSetCursorPosCallback(wnd, on_mouse_position_callback);
 	glfwSetMouseButtonCallback(wnd, on_mouse_button_callback);
+
+	glfwSetWindowAspectRatio(wnd, 1, 1);
 
 	// OpenGL states
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -60,8 +63,6 @@ void init_opengl(GLFWwindow* wnd)
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	
 }
 
 void set_2D_projection()
@@ -95,14 +96,14 @@ void set_3D_projection()
 	glLoadIdentity();
 }
 
-static void on_error_callback(int error, const char* description)
+static void on_error_callback(int error, const char *description)
 {
 	cout << "on_error_callback : " << endl;
 	cout << "  code : " << error << endl;
 	cout << "  description : " << description << endl;
 }
 
-static void on_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+static void on_key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
 	cout << "on_key_callback : " << key << ", " << scancode << ", " << action << ", " << mods << endl;
 
@@ -111,32 +112,37 @@ static void on_key_callback(GLFWwindow* window, int key, int scancode, int actio
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
+	// camera.ProcessKeyboard(key);
 }
 
-static void on_resize_callback(GLFWwindow* window, int width, int height)
+static void on_resize_callback(GLFWwindow *window, int width, int height)
 {
 	cout << "on_resize_callback : " << width << ", " << height << endl;
 
 	// Set viewport
 	glViewport(0, 0, width, height);
 
+
+	// set_2D_projection();
+
 	// Set projection matrix
-	set_3D_projection();
+	// set_3D_projection();
 }
 
-void on_mouse_position_callback(GLFWwindow* window, double x, double y)
+void on_mouse_position_callback(GLFWwindow *window, double x, double y)
 {
 	cout << "on_mouse_callback : " << x << ", " << y << endl;
 	mx = x;
 	my = CANVAS_HEIGHT - y;
+
 }
 
-void on_mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
 	cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
 }
 
-void run(GLFWwindow* wnd)
+void run(GLFWwindow *wnd)
 {
 	cout << "Start runing the main loop..." << endl;
 	while (!glfwWindowShouldClose(wnd))
@@ -147,17 +153,18 @@ void run(GLFWwindow* wnd)
 	}
 }
 
-void process_keys(GLFWwindow* wnd)
+void process_keys(GLFWwindow *wnd)
+{
+	// camera.ProcessMouseMovement(mx, my);
+
+}
+
+void update(GLFWwindow *wnd)
 {
 
 }
 
-void update(GLFWwindow* wnd)
-{
-
-}
-
-void render(GLFWwindow* wnd)
+void render(GLFWwindow *wnd)
 {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -165,43 +172,30 @@ void render(GLFWwindow* wnd)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//3D section
+	// 3D section
 	set_3D_projection();
 
 	glPushMatrix();
 
-	//camera
+	// camera
 	glTranslatef(0.0, -10.0, -512.0);
-	// glRotatef(40.0, 0.0, 1.0, 0.0);
-	glRotatef(40.0, 1.0, 0.0, 0.0);
-
+	glRotatef(30.0, 1.0, 0.0, 0.0);
+	glRotatef(40.0, 0.0, 1.0, 0.0);
 
 	map.render();
 	// ghost.render();
-	
+
 	glPopMatrix();
 
 	// glPushMatrix();
 
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-
-	//2D section
+	// 2D section
 	set_2D_projection();
-	// minimap.render();
-	// glBegin(GL_TRIANGLE_STRIP);
-	// 	glVertex3f( 0.0, 0.0, 0.0);
-	// 	glVertex3f(SCREEN_WIDTH/8.0, 0.0, 0.0);
-	// 	glVertex3f( 0.0, SCREEN_WIDTH/6.0, 0.0);
-	// 	glVertex3f( SCREEN_WIDTH/8.0, SCREEN_WIDTH/6.0, 0.0);
-	// glEnd();
-
-	
-	glPushMatrix();
+	minimap.render();
 
 
 	glPopAttrib();
-	// glPopMatrix();
-
+	
 
 	glfwSwapBuffers(wnd);
 	glfwPollEvents();
@@ -210,8 +204,8 @@ void render(GLFWwindow* wnd)
 int main()
 {
 
-	GLFWwindow* gl_wnd;
-	
+	GLFWwindow *gl_wnd;
+
 	// Create OpenGL window
 	glfwSetErrorCallback(on_error_callback);
 	if (!glfwInit())
@@ -231,11 +225,10 @@ int main()
 	init_opengl(gl_wnd);
 	srand(time(NULL));
 
-	
 	// Enter main loop
 	run(gl_wnd);
 
 	// Done.
-	//system("PAUSE");
+	// system("PAUSE");
 	return 0;
 }

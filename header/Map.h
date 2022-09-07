@@ -15,11 +15,11 @@ public:
 	Map();
 	virtual ~Map();
 	void render();
+	Texture2D ground;
+	Texture2D wall;
 private:
 	float grid;
 	float wallHeight;
-	Texture2D ground;
-	Texture2D wall;
 	void drawWall(float point[][2]);
 	void drawGround(float point[][2]);
 
