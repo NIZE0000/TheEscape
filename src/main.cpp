@@ -177,15 +177,14 @@ void render(GLFWwindow *wnd)
 
 	glPushMatrix();
 
-	// camera
-	glTranslatef(0.0, -50.0, 0.0);
-	// glTranslatef(0.0, -50.0, -550.0);
-	// glRotatef(60.0, 1.0, 0.0, 0.0);
+	glTranslatef(0.0, -50.0, -600.0);
+	glRotatef(60.0, 1.0, 0.0, 0.0);
 	// glRotatef(-90.0, 0.0, 1.0, 0.0);
 
-	camera.updateCamera();
+	// camera
+	// camera.updateCamera();
 	map.render();
-	camera.render();
+	// camera.render();
 	// ghost.render();
 
 	glPopMatrix();
