@@ -14,7 +14,7 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 512
+#define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
@@ -40,6 +40,9 @@ MiniMap minimap;
 
 Camera camera;
 
+bool firstMouse = true;
+float lastX = CANVAS_WIDTH / 2, lastY = CANVAS_HEIGHT / 2;
+
 void init_opengl(GLFWwindow *wnd)
 {
 
@@ -50,6 +53,7 @@ void init_opengl(GLFWwindow *wnd)
 	glfwSetMouseButtonCallback(wnd, on_mouse_button_callback);
 
 	glfwSetWindowAspectRatio(wnd, 1, 1);
+	glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// OpenGL states
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -111,8 +115,6 @@ static void on_key_callback(GLFWwindow *window, int key, int scancode, int actio
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-	
-	camera.ProcessKeyboard(key);
 }
 
 static void on_resize_callback(GLFWwindow *window, int width, int height)
@@ -121,7 +123,6 @@ static void on_resize_callback(GLFWwindow *window, int width, int height)
 
 	// Set viewport
 	glViewport(0, 0, width, height);
-
 
 	// set_2D_projection();
 
@@ -134,7 +135,6 @@ void on_mouse_position_callback(GLFWwindow *window, double x, double y)
 	cout << "on_mouse_callback : " << x << ", " << y << endl;
 	mx = x;
 	my = CANVAS_HEIGHT - y;
-
 }
 
 void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
@@ -155,13 +155,25 @@ void run(GLFWwindow *wnd)
 
 void process_keys(GLFWwindow *wnd)
 {
-	// camera.ProcessMouseMovement(mx, my);
+	camera.ProcessKeyboard(wnd);
 
+	if (firstMouse)
+	{
+		lastX = mx;
+		lastY = my;
+		firstMouse = false;
+	}
+
+	float xoffset = mx - lastX;
+	float yoffset = -my + lastY;
+	lastX = mx;
+	lastY = my;
+	camera.ProcessMouseMovement(xoffset, yoffset, GL_TRUE);
+	// glfwSetCursorPos(wnd, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
 }
 
 void update(GLFWwindow *wnd)
 {
-
 }
 
 void render(GLFWwindow *wnd)
@@ -177,18 +189,17 @@ void render(GLFWwindow *wnd)
 
 	glPushMatrix();
 
-	glTranslatef(0.0, -50.0, -600.0);
-	glRotatef(60.0, 1.0, 0.0, 0.0);
+	// glTranslatef(0.0, -50.0, -600.0);
+	// glRotatef(40.0, 1.0, 0.0, 0.0);
 	// glRotatef(-90.0, 0.0, 1.0, 0.0);
 
 	// camera
-	// camera.updateCamera();
+	camera.render();
+	//render map
 	map.render();
-	// camera.render();
 	// ghost.render();
 
 	glPopMatrix();
-
 
 	// 2D section
 	glPushMatrix();
@@ -223,6 +234,9 @@ int main()
 	// Initialize OpenGL's states
 	init_opengl(gl_wnd);
 	srand(time(NULL));
+
+	//load texture
+	map.loadTexture();
 
 	// Enter main loop
 	run(gl_wnd);

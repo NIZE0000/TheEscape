@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
-project("The Escape" VERSION 0.1.0)
+project("TheEscape" VERSION 0.1.0)
 
 
-# add_library()
-
-file(GLOB_RECURSE SRC_FILES src/*.cpp)
-add_executable(TheEscape ${SRC_FILES})
+file(GLOB SRC_FILES src/*.cpp)
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -18,7 +16,7 @@ add_subdirectory(external/glfw)
 # set(ASSIMP_INSTALL_PDB OFF CACHE BOOL "" FORCE)
 # add_subdirectory(external/assimp)
 
-target_include_directories(TheEscape PUBLIC header external external/stb external/glm external/glfw/include  .)
+target_include_directories(${PROJECT_NAME} PUBLIC header external external/stb external/glm external/glfw/include  .)
 
 if (UNIX)
 	# Linux specific libraries
@@ -30,4 +28,4 @@ else ()
 	message(FATAL_ERROR "Platform is not supported!")
 endif ()
 
-target_link_libraries(TheEscape glfw GL dl ${PLAT_SPEC_LIBS})
+target_link_libraries(${PROJECT_NAME} glfw GL dl ${PLAT_SPEC_LIBS})

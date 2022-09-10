@@ -17,12 +17,12 @@ void MiniMap::render()
 
 void MiniMap::drawMiniMap()
 {
-    float grid = 85.333333333 / 3;
+    float grid = 85.333333333/3;
 
     glPushMatrix();
 
     // bg
-    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glColor4f(0.5, 0.5, 0.5, 0.7);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(grid * 6, 0.0, 0.0);
@@ -82,6 +82,5 @@ void MiniMap::drawMiniMap()
         glVertex3f(grid * walls[i][1][0], grid * walls[i][1][1], 0.0);
         glEnd();
     }
-
     glPopMatrix();
 }

@@ -15,6 +15,7 @@ public:
 	Map();
 	virtual ~Map();
 	void render();
+	void loadTexture();
 	Texture2D ground;
 	Texture2D wall;
 private:

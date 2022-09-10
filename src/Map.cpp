@@ -15,15 +15,20 @@ Map::Map()
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
 	this->wallHeight = 100;
 
-	float position[7][7][2] = {}; //for store all position in 1/6 grid
+	float position[7][7][2] = {}; // for store all position in 1/6 grid
 
 	// for (int i = 0; i < count; i++)
 	// {
 	// 	/* code */
 	// }
-	 
+}
 
-
+void Map::loadTexture()
+{	
+	this->ground.ID = 0;
+	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
+	this->wall.ID = 1;
+	this->wall.Generate("/home/Nice/GL/The Escape/assets/textures/wall.jpg", 500, 500);
 }
 
 Map::~Map()
@@ -31,21 +36,18 @@ Map::~Map()
 	// TODO Auto-generated destructor stub
 	this->ground.Delete();
 	this->wall.Delete();
-
 }
 
 void Map::render()
 {
-	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
 	this->ground.Bind();
-	this->ground.Delete();
 
 	// ground render
 	glPushMatrix();
 
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
-	
+
 	glColor3f(0.7, 0.7, 0.7);
 	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(0.0, 0.0);
@@ -60,9 +62,7 @@ void Map::render()
 
 	glPopAttrib();
 
-	this->wall.Generate("/home/Nice/GL/The Escape/assets/textures/wall.jpg", 500, 500);
 	this->wall.Bind();
-	this->wall.Delete();
 
 	// wall render
 	glColor3f(0.6, 0.6, 0.6);
@@ -102,9 +102,8 @@ void Map::render()
 
 void Map::drawWall(float point[][2])
 {
-	float dif = (abs((point[0][0])-(point[1][0]))) + (abs((point[0][1])-(point[1][1])));
+	float dif = (abs((point[0][0]) - (point[1][0]))) + (abs((point[0][1]) - (point[1][1])));
 	// std::cout<<dif<<" "<< " "<< (point[0][0])<<std::endl; // debug
-
 
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
@@ -125,14 +124,13 @@ void Map::drawWall(float point[][2])
 	glVertex3f(point[1][0] * this->grid, 0, point[1][1] * this->grid);
 	glTexCoord2f(dif, 0.0);
 	glVertex3f(point[0][0] * this->grid, 0, point[0][1] * this->grid);
-	glTexCoord2f(0.0,1);
+	glTexCoord2f(0.0, 1);
 	glVertex3f(point[1][0] * this->grid, this->wallHeight, point[1][1] * this->grid);
 	glTexCoord2f(dif, 1);
 	glVertex3f(point[0][0] * this->grid, this->wallHeight, point[0][1] * this->grid);
 	glEnd();
 
 	glPopAttrib();
-
 }
 
 void Map::drawGround(float point[][2])
