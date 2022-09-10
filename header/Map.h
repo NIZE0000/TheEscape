@@ -16,11 +16,14 @@ public:
 	virtual ~Map();
 	void render();
 	void loadTexture();
+	bool checkBoundary(float position[3]);
 	Texture2D ground;
 	Texture2D wall;
+
 private:
 	float grid;
 	float wallHeight;
+	float bound[7][7][2];
 	void drawWall(float point[][2]);
 	void drawGround(float point[][2]);
 

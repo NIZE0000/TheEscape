@@ -173,7 +173,12 @@ void process_keys(GLFWwindow *wnd)
 }
 
 void update(GLFWwindow *wnd)
-{
+{	
+	float cx,cy,cz;
+	camera.getPosition(&cx,&cy,&cz);
+	minimap.updatePosition(&cx,&cy,&cz, G);
+	// std::cout<<int(G)<<endl;
+
 }
 
 void render(GLFWwindow *wnd)
@@ -237,6 +242,8 @@ int main()
 
 	//load texture
 	map.loadTexture();
+
+
 
 	// Enter main loop
 	run(gl_wnd);

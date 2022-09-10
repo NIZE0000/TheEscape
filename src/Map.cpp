@@ -15,16 +15,22 @@ Map::Map()
 	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
 	this->wallHeight = 100;
 
-	float position[7][7][2] = {}; // for store all position in 1/6 grid
+	this->bound[7][7][2] ; // for store all in X and Z axis to ref position in 1/6 grid
 
-	// for (int i = 0; i < count; i++)
-	// {
-	// 	/* code */
-	// }
+	for (int i = 0; i < 7; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			this->bound[i][j][0] = this->grid * (-3 + j);
+			this->bound[i][j][1] = this->grid * (-3 + i);
+			std::cout << this->bound[i][j][0] << ", " << this->bound[i][j][1] <<" ";
+		}
+		std::cout<<std::endl;
+	}
 }
 
 void Map::loadTexture()
-{	
+{
 	this->ground.ID = 0;
 	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
 	this->wall.ID = 1;
@@ -40,9 +46,9 @@ Map::~Map()
 
 void Map::render()
 {
-	this->ground.Bind();
+	this->ground.Bind(); // binding ground texture
 
-	// ground render
+	// render ground
 	glPushMatrix();
 
 	glPushAttrib(GL_TEXTURE_BIT);
@@ -62,9 +68,26 @@ void Map::render()
 
 	glPopAttrib();
 
-	this->wall.Bind();
+	this->wall.Bind(); // binding wall texture
 
-	// wall render
+	glPushAttrib(GL_TEXTURE_BIT);
+	glEnable(GL_TEXTURE_2D);
+
+	// render Roof
+	glColor3f(0.6, 0.6, 0.6);
+	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(256.0, this->wallHeight, 256.0);
+	glTexCoord2f(6.0, 0.0);
+	glVertex3f(-256.0, this->wallHeight, 256.0);
+	glTexCoord2f(0.0, 6.0);
+	glVertex3f(256.0, this->wallHeight, -256.0);
+	glTexCoord2f(6.0, 6.0);
+	glVertex3f(-256.0, this->wallHeight, -256.0);
+	glEnd();
+	glPopAttrib();
+
+	// render wall
 	glColor3f(0.6, 0.6, 0.6);
 
 	float walls[][2][2] = {
@@ -141,4 +164,14 @@ void Map::drawGround(float point[][2])
 	glVertex3f(point[2][0] * this->grid, 0, point[2][1] * this->grid);
 	glVertex3f(point[3][0] * this->grid, 0, point[3][1] * this->grid);
 	glEnd();
+}
+
+bool Map::checkBoundary(float position[3])
+{
+	// if (this->position[0] this->position[1] this->position[2])
+	// {
+	// 	/* code */
+	// }
+
+	// return true;
 }

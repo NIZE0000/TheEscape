@@ -15,8 +15,6 @@ enum Camera_Movement
 };
 
 // Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
 const float SPEED = 2.5f;
 const float MouseSensitivity = 0.1;
 const float DEG_TO_RED = 0.017453293;
@@ -44,6 +42,7 @@ public:
 
     void ProcessKeyboard(GLFWwindow *wnd)
     {
+        // checkBound();
 
         if (glfwGetKey(wnd, GLFW_KEY_W) == GLFW_PRESS)
         {
@@ -71,11 +70,11 @@ public:
         }
         if (glfwGetKey(wnd, GLFW_KEY_UP) == GLFW_PRESS)
         {
-            this->rot[0] -= 5;
+            this->rot[0] -= 2;
         }
         if (glfwGetKey(wnd, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            this->rot[0] += 5;
+            this->rot[0] += 2;
         }
     }
 
@@ -141,7 +140,7 @@ public:
         updateCamera();
     }
 
-    // Processes input received from a mouse input system.
+    // Processes input received from a mouse input.
     // Expects the offset value in both the x and y direction.
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
     {
@@ -163,6 +162,12 @@ public:
         updateCamera();
     }
 
+    void getPosition(float* x, float* y, float* z){
+        *x = this->pos[0];
+        *y = this->pos[1];
+        *z = this->pos[2];
+    }
+
 private:
     void updateCamera()
     {
@@ -176,10 +181,10 @@ private:
             this->rot[0] = -89;
         }
 
-        // debug
-        // std::cout << " dir " << this->dir[0] << " " << this->dir[1] << " " << this->dir[2] << std::endl;
-        // std::cout << " pos ," << this->pos[0] << " " << this->pos[1] << ", " << this->pos[2] << std::endl;
-        // std::cout << " rot " << this->rot[0] << " " << this->rot[1] << " " << this->rot[2] << std::endl;
+        // Debug dir pos rot
+        std::cout << " dir " << this->dir[0] << " " << this->dir[1] << " " << this->dir[2] << std::endl;
+        std::cout << " pos ," << this->pos[0] << " " << this->pos[1] << ", " << this->pos[2] << std::endl;
+        std::cout << " rot " << this->rot[0] << " " << this->rot[1] << " " << this->rot[2] << std::endl;
 
         glPushMatrix();
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
@@ -187,5 +192,16 @@ private:
         glTranslatef(this->pos[0], this->pos[1], this->pos[2]);
         glPopMatrix;
     }
+
+    void checkBound(){
+        // int check = this->pos[0]%(512/2);
+
+        // if ( == )
+        // {
+        //     std::cout<<"out of range"<<std::endl;
+        // }
+        
+    }
+
 };
 #endif
