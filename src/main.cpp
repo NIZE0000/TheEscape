@@ -13,7 +13,7 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 512
+#define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
@@ -185,8 +185,6 @@ void update(GLFWwindow *wnd)
 	bool check = map.checkCollision(&cx, &cy, &cz);
 	camera.updateCollision(check);
 
-	
-
 	minimap.updatePosition(&cx, &cy, &cz, G);
 
 	// get ghost position to draw
@@ -211,7 +209,7 @@ void render(GLFWwindow *wnd)
 
 	// camera or player
 	camera.render();
-	camera.Debug(); // return log from class atrribute
+	// camera.Debug(); // return log from class atrribute
 
 	// render map
 	map.render();

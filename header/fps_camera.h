@@ -49,6 +49,13 @@ public:
         this->pos[2] = z;
     }
 
+    void getPosition(float *x, float *y, float *z)
+    {
+        *x = this->pos[0];
+        *y = this->pos[1];
+        *z = this->pos[2];
+    }
+    
     void setDegree(float x, float y, float z)
     {
         this->rot[0] = x;
@@ -56,10 +63,11 @@ public:
         this->rot[2] = z;
     }
 
+
     void ProcessKeyboard(GLFWwindow *wnd)
     {
 
-        if (this->collision ) // Bullshit check
+        if (this->collision) // Bullshit check
         {
             this->pos[0] = this->lastPos[0];
             this->pos[2] = this->lastPos[2];
@@ -147,27 +155,8 @@ public:
         }
     }
 
-    void render() // angle lines X Y Z
+    void render()
     {
-
-        glColor4f(1.0, 0.0, 0.0, 1.0);
-        glBegin(GL_LINES);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(10.0, 0.0, 0.0);
-        glEnd();
-
-        glColor4f(0.0, 1.0, 0.0, 1.0);
-        glBegin(GL_LINES);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 10.0, 0.0);
-        glEnd();
-
-        glColor4f(0.0, 0.0, 1.0, 1.0);
-        glBegin(GL_LINES);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.0, 10.0);
-        glEnd();
-
         updateCamera();
     }
 
@@ -193,13 +182,6 @@ public:
         updateCamera();
     }
 
-    void getPosition(float *x, float *y, float *z)
-    {
-        *x = this->pos[0];
-        *y = this->pos[1];
-        *z = this->pos[2];
-    }
-
     void Debug()
     {
         // Debug dir pos rot
@@ -216,7 +198,6 @@ public:
 private:
     void updateCamera()
     {
-        // checkCollision();
 
         if (this->rot[0] > 89)
         {

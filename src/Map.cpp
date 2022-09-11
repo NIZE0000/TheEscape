@@ -150,7 +150,7 @@ bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 {
 
 	// not done yet
-	int space = 10;
+	int space = 5;
 
 	for (int i = 0; i < sizeof(this->walls) / 16; i++)
 	{
