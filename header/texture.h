@@ -26,7 +26,7 @@ public:
     // Constructor (sets default texture modes)
     Texture2D();
     // Generates texture from image data
-    void Generate(const GLchar *file, GLuint width, GLuint height);
+    void Generate(const char *file, GLuint width, GLuint height);
     // Delete texture
     void Delete();
 
