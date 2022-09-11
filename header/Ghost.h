@@ -7,12 +7,6 @@ private:
 public:
     Ghost(/* args */);
     ~Ghost();
+
+    void render();
 };
-
-Ghost::Ghost(/* args */)
-{
-}
-
-Ghost::~Ghost()
-{
-}

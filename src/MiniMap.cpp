@@ -3,9 +3,18 @@
 
 MiniMap::MiniMap()
 {
-    this->grid = 85.333333333 /3;
+    this->grid = 85.333333333 / 3;
     this->mapRotation = 90;
 
+    this->bound[7][7][2]; // for store all in X and Z axis to ref position  6 grid
+    for (int i = 0; i < 7; i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            this->bound[i][j][0] = this->grid * (-3 + j);
+            this->bound[i][j][1] = this->grid * (3 - i);
+        }
+    }
 }
 
 MiniMap::~MiniMap()
@@ -48,41 +57,31 @@ void MiniMap::drawMiniMap()
     glVertex3f(512.0 / 3.0, 0.0, 0.0);
     glEnd();
 
-    //draw lines
-    float walls[][2][2] = {
-        {{-3, 3}, {3, 3}},
-        {{-3, 3}, {-3, 2}},
-        {{-3, 2}, {-1, 2}},
-        {{0, 2}, {1, 2}},
-        {{2, 2}, {3, 2}},
-        {{-1, 2}, {-1, 0}},
-        {{0, 2}, {0, 0}},
-        {{1, 2}, {1, 0}},
-        {{2, 2}, {2, -2}},
-        {{3, 3}, {3, 2}},
-        {{-3, 0}, {-1, 0}},
-        {{0, 0}, {1, 0}},
-        {{-3, 0}, {-1, 0}},
-        {{-3, 0}, {-3, -1}},
-        {{-3, -1}, {1, -1}},
-        {{-3, 0}, {-3, -1}},
-        {{1, -1}, {1, -3}},
-        {{1, -3}, {3, -3}},
-        {{3, -2}, {3, -3}},
-        {{2, -2}, {3, -2}},
-
-    };
+    // draw lines
     glTranslatef(grid * 3.0, grid * 3.0, 0.0);
-    glRotatef(-this->mapRotation, 0.0, 0.0, 1.0);
+    glRotatef(this->mapRotation, 0.0, 0.0, 1.0);
     glScalef(1.0, -1.0, 0.0);
-    for (int i = 0; i < sizeof(walls) / 16; i++)
+    for (int i = 0; i < sizeof(this->walls) / 16; i++)
     {
+        int index[2][2] = {
+            {this->walls[i][0][0], this->walls[i][0][1]}, /// row
+            {this->walls[i][1][0], this->walls[i][1][1]}, // colume
+        };
+
         float wall[][2] = {
-            {walls[i][0][0], walls[i][0][1]}, {walls[i][1][0], walls[i][1][1]}};
+            {
+                this->bound[index[0][0]][index[0][1]][0], // x
+                this->bound[index[0][0]][index[0][1]][1], // z
+            },
+            {
+                this->bound[index[1][0]][index[1][1]][0], // x
+                this->bound[index[1][0]][index[1][1]][1], // z
+            }};
+
         glColor4f(1.0, 1.0, 1.0, 1.0);
         glBegin(GL_LINES);
-        glVertex3f(grid * walls[i][0][0], grid * walls[i][0][1], 0.0);
-        glVertex3f(grid * walls[i][1][0], grid * walls[i][1][1], 0.0);
+        glVertex3f(wall[0][0], wall[0][1], 0.0);
+        glVertex3f(wall[1][0], wall[1][1], 0.0);
         glEnd();
     }
     glPopMatrix();
@@ -107,11 +106,11 @@ void MiniMap::drawPosition()
         }
 
         // Location Point
-        glTranslatef(this->grid*3, this->grid*3, 0.0);
-        glRotatef(this->mapRotation , 0.0, 0.0, 1.0);
-        glScalef( 1.0, -1.0, 0.0);
+        glTranslatef(this->grid * 3, this->grid * 3, 0.0);
+        glRotatef(this->mapRotation, 0.0, 0.0, 1.0);
+        glScalef(1.0, -1.0, 0.0);
         glBegin(GL_POINTS);
-        glVertex3f(locate.pos[0]/3, locate.pos[2]/3, 0.0);
+        glVertex3f(locate.pos[0] / 3, locate.pos[2] / 3, 0.0);
         glEnd();
         glPopMatrix();
 

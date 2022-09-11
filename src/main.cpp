@@ -7,7 +7,7 @@
 #include <Map.h>
 #include <MiniMap.h>
 #include <Player.h>
-// #include "header/Ghost.h"
+#include <Ghost.h>
 #include <fps_camera.h>
 
 using namespace std;
@@ -36,8 +36,8 @@ float my;
 Player player;
 Map map;
 MiniMap minimap;
-
 Camera camera;
+Ghost ghost;
 
 bool firstMouse = true;
 float lastX = CANVAS_WIDTH / 2, lastY = CANVAS_HEIGHT / 2;
@@ -182,14 +182,15 @@ void update(GLFWwindow *wnd)
 	float cx, cy, cz;
 	camera.getPosition(&cx, &cy, &cz);
 
-	bool check;
-	check = map.checkCollision(&cx, &cy, &cz);
-	camera.checkBound(check);
+	bool check = map.checkCollision(&cx, &cy, &cz);
+	camera.updateCollision(check);
+
+	
 
 	minimap.updatePosition(&cx, &cy, &cz, G);
 
 	// get ghost position to draw
-	float gx = -200, gy = -200, gz = 0;
+	float gx = -200, gy = 0, gz = 200;
 	minimap.updatePosition(&gx, &gy, &gz, R);
 
 	// std::cout<<int(G)<<endl;
@@ -208,13 +209,15 @@ void render(GLFWwindow *wnd)
 
 	glPushMatrix();
 
-	// camera
+	// camera or player
 	camera.render();
-	// camera.Debug();//return log from class atrribute
+	camera.Debug(); // return log from class atrribute
 
 	// render map
 	map.render();
-	// ghost.render();
+	ghost.render();
+
+	
 
 	glPopMatrix();
 
@@ -255,11 +258,8 @@ int main()
 	// load texture
 	map.loadTexture();
 
-	// camera.setPosition(-230.0, -50.0, -220.0);
+	camera.setPosition(-230.0, -50.0, -220.0);
 	camera.setDegree(0.0, -90.0, 0.0);
-
-	camera.setPosition(0.0, -50.0, 0.0);
-	// camera.setDegree(0.0, 0.0, 0.0);
 
 
 	// Enter main loop

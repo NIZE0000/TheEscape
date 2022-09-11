@@ -29,10 +29,11 @@ public:
         0.0, 0.0, 0.0};
     float dir[3] = {
         0.0, 0.0, 0.0};
-    float rot[3] = { 
+    float rot[3] = {
         0.0, 0.0, 0.0};
 
-    bool checkCollision = false;
+    bool collision = false;
+    float lastPos[3];
 
     // Camera options
     float MovementSpeed;
@@ -57,8 +58,23 @@ public:
 
     void ProcessKeyboard(GLFWwindow *wnd)
     {
+
+        if (this->collision ) // Bullshit check
+        {
+            this->pos[0] = this->lastPos[0];
+            this->pos[2] = this->lastPos[2];
+
+            this->collision = false;
+            return;
+        }
+        else
+        {
+            this->lastPos[0] = this->pos[0];
+            this->lastPos[2] = this->pos[2];
+        }
+
         float delta = 0.8;
-        
+
         if (glfwGetKey(wnd, GLFW_KEY_W) == GLFW_PRESS)
         {
             move(FORWARD, delta);
@@ -134,23 +150,23 @@ public:
     void render() // angle lines X Y Z
     {
 
-        // glColor4f(1.0, 0.0, 0.0, 1.0);
-        // glBegin(GL_LINES);
-        // glVertex3f(0.0, 0.0, 0.0);
-        // glVertex3f(10.0, 0.0, 0.0);
-        // glEnd();
+        glColor4f(1.0, 0.0, 0.0, 1.0);
+        glBegin(GL_LINES);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(10.0, 0.0, 0.0);
+        glEnd();
 
-        // glColor4f(0.0, 1.0, 0.0, 1.0);
-        // glBegin(GL_LINES);
-        // glVertex3f(0.0, 0.0, 0.0);
-        // glVertex3f(0.0, 10.0, 0.0);
-        // glEnd();
+        glColor4f(0.0, 1.0, 0.0, 1.0);
+        glBegin(GL_LINES);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 10.0, 0.0);
+        glEnd();
 
-        // glColor4f(0.0, 0.0, 1.0, 1.0);
-        // glBegin(GL_LINES);
-        // glVertex3f(0.0, 0.0, 0.0);
-        // glVertex3f(0.0, 0.0, 10.0);
-        // glEnd();
+        glColor4f(0.0, 0.0, 1.0, 1.0);
+        glBegin(GL_LINES);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.0, 10.0);
+        glEnd();
 
         updateCamera();
     }
@@ -192,36 +208,15 @@ public:
         std::cout << " rot " << this->rot[0] << ", " << this->rot[1] << ", " << this->rot[2] << std::endl;
     }
 
-    void checkBound(bool check)
+    void updateCollision(bool check)
     {
-
-        this->checkCollision = check;
-
-        // upper bound
-        if (this->pos[0] >= 256 - 10)
-        {
-            this->pos[0] = 256 - 10;
-        }
-        if (this->pos[2] >= 256 - 10)
-        {
-            this->pos[2] = 256 - 10;
-        }
-
-        //lowwer bound
-        if (this->pos[0] <= -256 + 10)
-        {
-            this->pos[0] = -256 + 10;
-        }
-        if (this->pos[2] <= -256 + 10)
-        {
-            this->pos[2] = -256 + 10;
-        }
+        this->collision = check; // Assign check value
     }
 
 private:
     void updateCamera()
     {
-        // checkBound();
+        // checkCollision();
 
         if (this->rot[0] > 89)
         {

@@ -12,10 +12,10 @@ Map::Map()
 {
 	// TODO Auto-generated constructor stub
 
-	this->grid = 85.333333333; // 1/6 grid base on 512 equation of 1.0 / 6.0 * 512
+	this->grid = 85.333333333; // 6 grid base on 512 equation of 1.0 / 6.0 * 512
 	this->wallHeight = 100;
 
-	this->bound[7][7][2]; // for store all in X and Z axis to ref position in 1/6 grid
+	this->bound[7][7][2]; //  for store all in X and Z axis to ref position  6 grid
 	for (int i = 0; i < 7; i++)
 	{
 		for (int j = 0; j < 7; j++)
@@ -45,7 +45,6 @@ Map::~Map()
 
 void Map::render()
 {
-	glPushMatrix();
 
 	this->ground.Bind(); // binding ground texture
 	{					 // render ground
@@ -91,6 +90,8 @@ void Map::render()
 	// render wall
 	glColor3f(0.6, 0.6, 0.6);
 
+	glRotatef(180.0, 0.0, 1.0, 0.0);
+
 	for (int i = 0; i < sizeof(this->walls) / 16; i++)
 	{
 		int index[2][2] = {
@@ -107,23 +108,15 @@ void Map::render()
 				this->bound[index[1][0]][index[1][1]][0], // x
 				this->bound[index[1][0]][index[1][1]][1], // z
 			}};
-		// std::cout<< index[0][0]<<", "<< index[0][1] <<std::endl;
-		// std::cout<< index[1][0]<<", "<< index[1][1] <<std::endl;
-		// std::cout<< wall[0][0]<<", "<< wall[0][1] <<std::endl;
-		// std::cout<< wall[1][0]<<", "<< wall[1][1] <<std::endl;
 
 		Map::drawWall(wall);
 	}
-
-	glPopMatrix();
+	glRotatef(-180.0, 0.0, 1.0, 0.0);
 }
 
 void Map::drawWall(float point[][2])
 {
-	// float dif = (abs((point[0][0]) - (point[1][0]))) + (abs((point[0][1]) - (point[1][1])));
-
-	float dif = (abs((point[0][0]) - (point[1][0])) + abs((point[0][1]) - (point[1][1]))) / this->grid;
-	// std::cout<<dif<<std::endl;
+	float dif = (abs((point[0][0]) - (point[1][0])) + abs((point[0][1]) - (point[1][1]))) / this->grid; // use for repeat texture on correct axis
 
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
@@ -155,51 +148,51 @@ void Map::drawWall(float point[][2])
 
 bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 {
-	int size = 20;
+
+	// not done yet
+	int space = 10;
 
 	for (int i = 0; i < sizeof(this->walls) / 16; i++)
 	{
 		int index[2][2] = {
-			{this->walls[i][0][0], this->walls[i][0][1]},
-			{this->walls[i][1][0], this->walls[i][1][1]},
+			{this->walls[i][0][0], this->walls[i][0][1]}, /// row
+			{this->walls[i][1][0], this->walls[i][1][1]}, // colume
 		};
 
 		float wall[][2] = {
 			{
-				this->bound[index[0][0]][index[0][1]][0],
-				this->bound[index[0][0]][index[0][1]][1],
+				this->bound[index[0][0]][index[0][1]][0], // x
+				this->bound[index[0][0]][index[0][1]][1], // z
 			},
 			{
-				this->bound[index[1][0]][index[1][1]][0],
-				this->bound[index[1][0]][index[1][1]][1],
+				this->bound[index[1][0]][index[1][1]][0], // x
+				this->bound[index[1][0]][index[1][1]][1], // z
 			}};
 
-		bool collisionX = false, collisionY = false;
+		bool collisionX = false, collisionZ = false;
 
 		// collision x-axis?
-		if (*x + size >= wall[0][0] &&
-			wall[0][0] + ((wall[0][0]) - (wall[0][1])) + 10 >= *x)
+		if ((*x - space <= wall[0][0] &&
+			 *x + space >= wall[1][0]) ||
+			(*x + space > wall[0][0] &&
+			 *x - space < wall[1][0]))
 		{
 			collisionX = true;
 		}
 
-		// collision y-axis?
-		if (*z + size >= wall[0][1] &&
-			wall[1][0] + ((wall[1][0]) - (wall[1][1])) + 10 >= *z)
+		// collision z-axis?
+		if ((*z - space <= wall[0][1] &&
+			 *z + space >= wall[1][1]) ||
+			(*z + space > wall[0][1] &&
+			 *z - space < wall[1][1]))
 		{
-			collisionY = true;
+			collisionZ = true;
 		}
 
-		std::cout << collisionX << ", " << collisionY << std::endl;
-		std::cout << wall[0][0] << ", " << wall[0][1] << std::endl;
-		std::cout << wall[1][0] << ", " << wall[1][1] << std::endl;
-		std::cout << *x << ", " << *y<< ", " << *z << std::endl;
-
-
 		// collision only if on both axes
-		if (collisionX && collisionY)
+		if (collisionX && collisionZ)
 		{
-			// std::cout << wall[0][0] << " " << wall[0][1] << "out of map" << std::endl;
+
 			return true;
 		}
 
@@ -211,5 +204,6 @@ bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 		// -256, -170.667 -170.667, -170.667 -85.3333, -170.667 0, -170.667 85.3333, -170.667 170.667, -170.667 256, -170.667
 		// -256, -256 -170.667, -256 -85.3333, -256 0, -256 85.3333, -256 170.667, -256 256, -256
 	}
+
 	return false;
 }

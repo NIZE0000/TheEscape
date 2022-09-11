@@ -21,9 +21,6 @@ void Texture2D::Generate(const GLchar *file, GLuint width, GLuint height)
     {
         std::cout << "error: can't load image" << std::endl;
     }
-    // else{
-    //     std::cout << " load image succed" << std::endl;
-    // }
 
     // Create Texture
     glBindTexture(GL_TEXTURE_2D, this->ID);
