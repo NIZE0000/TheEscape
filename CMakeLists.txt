@@ -20,12 +20,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC header external external/stb e
 
 if (UNIX)
 	# Linux specific libraries
-	set(PLAT_SPEC_LIBS "dl")
+	set(PLAT_SPEC_LIBS "GL")
 elseif (WIN32)
 	# Windows specific libraries
-	set(PLAT_SPEC_LIBS "")
+	set(PLAT_SPEC_LIBS "opengl32")
 else ()
 	message(FATAL_ERROR "Platform is not supported!")
 endif ()
 
-target_link_libraries(${PROJECT_NAME} glfw GL dl ${PLAT_SPEC_LIBS})
+target_link_libraries(${PROJECT_NAME} glfw ${PLAT_SPEC_LIBS})

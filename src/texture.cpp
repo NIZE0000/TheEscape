@@ -8,7 +8,7 @@ Texture2D::Texture2D()
     glGenTextures(1, &this->ID);
 }
 
-void Texture2D::Generate(const GLchar *file, GLuint width, GLuint height)
+void Texture2D::Generate(const char *file, GLuint width, GLuint height)
 {
     
     this->Width = width;
