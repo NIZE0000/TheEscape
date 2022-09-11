@@ -9,12 +9,11 @@
 #include <Player.h>
 // #include "header/Ghost.h"
 #include <fps_camera.h>
-#include <camera.h>
 
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 1024
+#define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
@@ -109,7 +108,7 @@ static void on_error_callback(int error, const char *description)
 
 static void on_key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
-	cout << "on_key_callback : " << key << ", " << scancode << ", " << action << ", " << mods << endl;
+	// cout << "on_key_callback : " << key << ", " << scancode << ", " << action << ", " << mods << endl;
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
@@ -119,7 +118,7 @@ static void on_key_callback(GLFWwindow *window, int key, int scancode, int actio
 
 static void on_resize_callback(GLFWwindow *window, int width, int height)
 {
-	cout << "on_resize_callback : " << width << ", " << height << endl;
+	// cout << "on_resize_callback : " << width << ", " << height << endl;
 
 	// Set viewport
 	glViewport(0, 0, width, height);
@@ -132,14 +131,14 @@ static void on_resize_callback(GLFWwindow *window, int width, int height)
 
 void on_mouse_position_callback(GLFWwindow *window, double x, double y)
 {
-	cout << "on_mouse_callback : " << x << ", " << y << endl;
+	// cout << "on_mouse_callback : " << x << ", " << y << endl;
 	mx = x;
 	my = CANVAS_HEIGHT - y;
 }
 
 void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
-	cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
+	// cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
 }
 
 void run(GLFWwindow *wnd)
@@ -155,6 +154,7 @@ void run(GLFWwindow *wnd)
 
 void process_keys(GLFWwindow *wnd)
 {
+	// Process keyboard
 	camera.ProcessKeyboard(wnd);
 
 	if (firstMouse)
@@ -168,17 +168,31 @@ void process_keys(GLFWwindow *wnd)
 	float yoffset = -my + lastY;
 	lastX = mx;
 	lastY = my;
+	if (xoffset == 512 || yoffset == -256)
+	{
+		xoffset = 0;
+		yoffset = 0;
+	}
 	camera.ProcessMouseMovement(xoffset, yoffset, GL_TRUE);
-	// glfwSetCursorPos(wnd, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
 }
 
 void update(GLFWwindow *wnd)
-{	
-	float cx,cy,cz;
-	camera.getPosition(&cx,&cy,&cz);
-	minimap.updatePosition(&cx,&cy,&cz, G);
-	// std::cout<<int(G)<<endl;
+{
+	// get player position to draw
+	float cx, cy, cz;
+	camera.getPosition(&cx, &cy, &cz);
 
+	bool check;
+	check = map.checkCollision(&cx, &cy, &cz);
+	camera.checkBound(check);
+
+	minimap.updatePosition(&cx, &cy, &cz, G);
+
+	// get ghost position to draw
+	float gx = -200, gy = -200, gz = 0;
+	minimap.updatePosition(&gx, &gy, &gz, R);
+
+	// std::cout<<int(G)<<endl;
 }
 
 void render(GLFWwindow *wnd)
@@ -194,13 +208,11 @@ void render(GLFWwindow *wnd)
 
 	glPushMatrix();
 
-	// glTranslatef(0.0, -50.0, -600.0);
-	// glRotatef(40.0, 1.0, 0.0, 0.0);
-	// glRotatef(-90.0, 0.0, 1.0, 0.0);
-
 	// camera
 	camera.render();
-	//render map
+	// camera.Debug();//return log from class atrribute
+
+	// render map
 	map.render();
 	// ghost.render();
 
@@ -240,9 +252,14 @@ int main()
 	init_opengl(gl_wnd);
 	srand(time(NULL));
 
-	//load texture
+	// load texture
 	map.loadTexture();
 
+	// camera.setPosition(-230.0, -50.0, -220.0);
+	camera.setDegree(0.0, -90.0, 0.0);
+
+	camera.setPosition(0.0, -50.0, 0.0);
+	// camera.setDegree(0.0, 0.0, 0.0);
 
 
 	// Enter main loop

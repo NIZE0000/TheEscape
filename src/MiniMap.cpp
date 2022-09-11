@@ -3,6 +3,9 @@
 
 MiniMap::MiniMap()
 {
+    this->grid = 85.333333333 /3;
+    this->mapRotation = 90;
+
 }
 
 MiniMap::~MiniMap()
@@ -17,7 +20,6 @@ void MiniMap::render()
 
 void MiniMap::drawMiniMap()
 {
-    float grid = 85.333333333 / 3;
 
     glPushMatrix();
 
@@ -25,9 +27,9 @@ void MiniMap::drawMiniMap()
     glColor4f(0.5, 0.5, 0.5, 0.7);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(grid * 6, 0.0, 0.0);
-    glVertex3f(0.0, grid * 6, 0.0);
-    glVertex3f(grid * 6, grid * 6, 0.0);
+    glVertex3f(this->grid * 6, 0.0, 0.0);
+    glVertex3f(0.0, this->grid * 6, 0.0);
+    glVertex3f(this->grid * 6, this->grid * 6, 0.0);
     glEnd();
 
     // boarder
@@ -46,6 +48,7 @@ void MiniMap::drawMiniMap()
     glVertex3f(512.0 / 3.0, 0.0, 0.0);
     glEnd();
 
+    //draw lines
     float walls[][2][2] = {
         {{-3, 3}, {3, 3}},
         {{-3, 3}, {-3, 2}},
@@ -70,7 +73,7 @@ void MiniMap::drawMiniMap()
 
     };
     glTranslatef(grid * 3.0, grid * 3.0, 0.0);
-    glRotatef(-90.0, 0.0, 0.0, 1.0);
+    glRotatef(-this->mapRotation, 0.0, 0.0, 1.0);
     glScalef(1.0, -1.0, 0.0);
     for (int i = 0; i < sizeof(walls) / 16; i++)
     {
@@ -87,7 +90,6 @@ void MiniMap::drawMiniMap()
 
 void MiniMap::drawPosition()
 {
-
     for (Location locate : this->locations)
     {
         glPushMatrix();
@@ -105,18 +107,16 @@ void MiniMap::drawPosition()
         }
 
         // Location Point
-        glTranslatef(85.0, 85.0, 0.0);
+        glTranslatef(this->grid*3, this->grid*3, 0.0);
+        glRotatef(this->mapRotation , 0.0, 0.0, 1.0);
+        glScalef( 1.0, -1.0, 0.0);
         glBegin(GL_POINTS);
-        glPointSize(5.0);
-        glVertex3f(locate.pos[0], locate.pos[2], 0.0);
-        // glVertex3f(0.0, 100.0, 0.0);
-
+        glVertex3f(locate.pos[0]/3, locate.pos[2]/3, 0.0);
         glEnd();
         glPopMatrix();
 
         this->locations.pop_back();
     }
-        // std::cout<<sizeof(this->locations)<<std::endl;
 }
 
 void MiniMap::updatePosition(float *x, float *y, float *z, enum Color color)

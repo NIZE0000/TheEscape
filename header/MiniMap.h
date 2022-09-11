@@ -20,7 +20,8 @@ private:
 	// float area[] = 0 ;
 	void drawMiniMap();
 	void drawPosition();
-
+	float grid;
+	float mapRotation;
 	std::vector<Location> locations;
 
 public:

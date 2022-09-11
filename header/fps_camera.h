@@ -4,6 +4,7 @@
 
 #include <pch.h>
 #include <vector>
+#include <Map.h>
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement
@@ -25,40 +26,54 @@ class Camera
 public:
     // Camera Attributes
     float pos[3] = {
-        -230.0, -50.0, 220.0};
+        0.0, 0.0, 0.0};
     float dir[3] = {
         0.0, 0.0, 0.0};
-    float rot[3] = {
-        0.0, -90.0, 0.0};
+    float rot[3] = { 
+        0.0, 0.0, 0.0};
+
+    bool checkCollision = false;
 
     // Camera options
     float MovementSpeed;
 
     Camera() : MovementSpeed(SPEED)
     {
+    }
 
-        updateCamera();
+    void setPosition(float x, float y, float z)
+    {
+        this->pos[0] = x;
+        this->pos[1] = y;
+        this->pos[2] = z;
+    }
+
+    void setDegree(float x, float y, float z)
+    {
+        this->rot[0] = x;
+        this->rot[1] = y;
+        this->rot[2] = z;
     }
 
     void ProcessKeyboard(GLFWwindow *wnd)
     {
-        // checkBound();
-
+        float delta = 0.8;
+        
         if (glfwGetKey(wnd, GLFW_KEY_W) == GLFW_PRESS)
         {
-            move(FORWARD, 1);
+            move(FORWARD, delta);
         }
         if (glfwGetKey(wnd, GLFW_KEY_S) == GLFW_PRESS)
         {
-            move(BACKWARD, 1);
+            move(BACKWARD, delta);
         }
         if (glfwGetKey(wnd, GLFW_KEY_D) == GLFW_PRESS)
         {
-            move(RIGHT, 1);
+            move(RIGHT, delta);
         }
         if (glfwGetKey(wnd, GLFW_KEY_A) == GLFW_PRESS)
         {
-            move(LEFT, 1);
+            move(LEFT, delta);
         }
         if (glfwGetKey(wnd, GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
@@ -162,15 +177,51 @@ public:
         updateCamera();
     }
 
-    void getPosition(float* x, float* y, float* z){
+    void getPosition(float *x, float *y, float *z)
+    {
         *x = this->pos[0];
         *y = this->pos[1];
         *z = this->pos[2];
     }
 
+    void Debug()
+    {
+        // Debug dir pos rot
+        std::cout << " dir " << this->dir[0] << ", " << this->dir[1] << ", " << this->dir[2] << std::endl;
+        std::cout << " pos " << this->pos[0] << ", " << this->pos[1] << ", " << this->pos[2] << std::endl;
+        std::cout << " rot " << this->rot[0] << ", " << this->rot[1] << ", " << this->rot[2] << std::endl;
+    }
+
+    void checkBound(bool check)
+    {
+
+        this->checkCollision = check;
+
+        // upper bound
+        if (this->pos[0] >= 256 - 10)
+        {
+            this->pos[0] = 256 - 10;
+        }
+        if (this->pos[2] >= 256 - 10)
+        {
+            this->pos[2] = 256 - 10;
+        }
+
+        //lowwer bound
+        if (this->pos[0] <= -256 + 10)
+        {
+            this->pos[0] = -256 + 10;
+        }
+        if (this->pos[2] <= -256 + 10)
+        {
+            this->pos[2] = -256 + 10;
+        }
+    }
+
 private:
     void updateCamera()
     {
+        // checkBound();
 
         if (this->rot[0] > 89)
         {
@@ -181,27 +232,11 @@ private:
             this->rot[0] = -89;
         }
 
-        // Debug dir pos rot
-        std::cout << " dir " << this->dir[0] << " " << this->dir[1] << " " << this->dir[2] << std::endl;
-        std::cout << " pos ," << this->pos[0] << " " << this->pos[1] << ", " << this->pos[2] << std::endl;
-        std::cout << " rot " << this->rot[0] << " " << this->rot[1] << " " << this->rot[2] << std::endl;
-
         glPushMatrix();
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
         glRotatef(this->rot[1], 0.0, 1.0, 0.0);
         glTranslatef(this->pos[0], this->pos[1], this->pos[2]);
         glPopMatrix;
     }
-
-    void checkBound(){
-        // int check = this->pos[0]%(512/2);
-
-        // if ( == )
-        // {
-        //     std::cout<<"out of range"<<std::endl;
-        // }
-        
-    }
-
 };
 #endif
