@@ -28,4 +28,6 @@ else ()
 	message(FATAL_ERROR "Platform is not supported!")
 endif ()
 
+target_link_directories(${PROJECT_NAME} PUBLIC external/glfw/src)
+
 target_link_libraries(${PROJECT_NAME} glfw ${PLAT_SPEC_LIBS})

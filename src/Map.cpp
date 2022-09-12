@@ -31,9 +31,9 @@ Map::Map()
 void Map::loadTexture()
 {
 	this->ground.ID = 0;
-	this->ground.Generate("/home/Nice/GL/The Escape/assets/textures/ground.jpg", 512, 512);
+	this->ground.Generate("../assets/textures/ground.jpg", 512, 512);
 	this->wall.ID = 1;
-	this->wall.Generate("/home/Nice/GL/The Escape/assets/textures/wall.jpg", 500, 500);
+	this->wall.Generate("../assets/textures/wall.jpg", 500, 500);
 }
 
 Map::~Map()
