@@ -188,7 +188,8 @@ void update(GLFWwindow *wnd)
 	minimap.updatePosition(&cx, &cy, &cz, G);
 
 	// get ghost position to draw
-	float gx = -200, gy = 0, gz = 200;
+	float gx, gy, gz;
+	ghost.getPosition(&gx, &gy, &gz);
 	minimap.updatePosition(&gx, &gy, &gz, R);
 
 	// std::cout<<int(G)<<endl;
@@ -209,13 +210,11 @@ void render(GLFWwindow *wnd)
 
 	// camera or player
 	camera.render();
-	// camera.Debug(); // return log from class atrribute
+	camera.Debug(); // return log from class atrribute
 
 	// render map
 	map.render();
 	ghost.render();
-
-	
 
 	glPopMatrix();
 
@@ -259,6 +258,8 @@ int main()
 	camera.setPosition(-230.0, -50.0, -220.0);
 	camera.setDegree(0.0, -90.0, 0.0);
 
+	ghost.setPosition(-220, 50, -230);
+	ghost.setDegree(0.0, 0.0, 0.0);
 
 	// Enter main loop
 	run(gl_wnd);

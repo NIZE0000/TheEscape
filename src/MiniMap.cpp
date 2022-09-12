@@ -92,6 +92,7 @@ void MiniMap::drawPosition()
     for (Location locate : this->locations)
     {
         glPushMatrix();
+
         if (locate.Color == R)
         {
             glColor4f(1.0, 0.0, 0.0, 1.0);
@@ -106,12 +107,14 @@ void MiniMap::drawPosition()
         }
 
         // Location Point
+
         glTranslatef(this->grid * 3, this->grid * 3, 0.0);
         glRotatef(this->mapRotation, 0.0, 0.0, 1.0);
         glScalef(1.0, -1.0, 0.0);
         glBegin(GL_POINTS);
         glVertex3f(locate.pos[0] / 3, locate.pos[2] / 3, 0.0);
         glEnd();
+
         glPopMatrix();
 
         this->locations.pop_back();

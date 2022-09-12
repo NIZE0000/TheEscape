@@ -55,7 +55,7 @@ public:
         *y = this->pos[1];
         *z = this->pos[2];
     }
-    
+
     void setDegree(float x, float y, float z)
     {
         this->rot[0] = x;
@@ -63,16 +63,16 @@ public:
         this->rot[2] = z;
     }
 
-
     void ProcessKeyboard(GLFWwindow *wnd)
     {
+        // std::cout << this->collision << std::endl;
 
         if (this->collision) // Bullshit check
         {
-            this->pos[0] = this->lastPos[0];
-            this->pos[2] = this->lastPos[2];
+            this->pos[0] -= (this->pos[0] - this->lastPos[0]) * 0.51;
+            this->pos[2] -= (this->pos[2] - this->lastPos[2]) * 0.51;
 
-            this->collision = false;
+            // this->collision = false;
             return;
         }
         else

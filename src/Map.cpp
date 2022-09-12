@@ -89,7 +89,6 @@ void Map::render()
 
 	// render wall
 	glColor3f(0.6, 0.6, 0.6);
-
 	glRotatef(180.0, 0.0, 1.0, 0.0);
 
 	for (int i = 0; i < sizeof(this->walls) / 16; i++)
@@ -109,7 +108,7 @@ void Map::render()
 				this->bound[index[1][0]][index[1][1]][1], // z
 			}};
 
-		Map::drawWall(wall);
+		// Map::drawWall(wall);
 	}
 	glRotatef(-180.0, 0.0, 1.0, 0.0);
 }
