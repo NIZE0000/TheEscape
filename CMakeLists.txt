@@ -16,7 +16,7 @@ add_subdirectory(external/glfw)
 # set(ASSIMP_INSTALL_PDB OFF CACHE BOOL "" FORCE)
 # add_subdirectory(external/assimp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC header external external/stb external/glm external/glfw/include  .)
+target_include_directories(${PROJECT_NAME} PUBLIC header external external/stb external/glfw/include  .)
 
 if (UNIX)
 	# Linux specific libraries
