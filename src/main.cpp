@@ -209,13 +209,13 @@ void render(GLFWwindow *wnd)
 
 	// camera or player
 	camera.render();
-	camera.Debug(); // return log from class atrribute
+	// camera.Debug(); // return log from class atrribute
 
 
 	// render map
 	map.render();
 	ghost.render();
-	ghost.Debug(); // return log from class atrribute
+	// ghost.Debug(); // return log from class atrribute
 
 	// 2D section
 	glLoadIdentity();

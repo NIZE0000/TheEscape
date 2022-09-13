@@ -116,6 +116,7 @@ void Ghost::chasePlayer(float *x, float *y, float *z)
 
 
     float degree = *180/3.145;
+    std::cout<<degree
 
     if (this->dir[2] != 1)
     {
