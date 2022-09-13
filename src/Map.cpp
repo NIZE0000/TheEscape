@@ -6,7 +6,7 @@
  */
 
 #include <Map.h>
-#include <pch.h>
+#include <texture.h>
 
 Map::Map()
 {
@@ -31,9 +31,9 @@ Map::Map()
 void Map::loadTexture()
 {
 	this->ground.ID = 0;
-	this->ground.Generate("../assets/textures/ground.jpg", 512, 512);
+	this->ground.Generate("assets/textures/ground.jpg", 512, 512);
 	this->wall.ID = 1;
-	this->wall.Generate("../assets/textures/wall.jpg", 500, 500);
+	this->wall.Generate("assets/textures/wall.jpg", 500, 500);
 }
 
 Map::~Map()
@@ -45,6 +45,7 @@ Map::~Map()
 
 void Map::render()
 {
+	glTranslatef(0.0,-50.0,0.0);
 
 	this->ground.Bind(); // binding ground texture
 	{					 // render ground
@@ -54,7 +55,6 @@ void Map::render()
 
 		glColor3f(0.7, 0.7, 0.7);
 		glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2f(0.0, 0.0);
 		glTexCoord2f(0.0, 0.0);
 		glVertex3f(this->bound[6][6][0], 0.0, this->bound[6][6][1]);
 		glTexCoord2f(6.0, 0.0);
@@ -108,9 +108,11 @@ void Map::render()
 				this->bound[index[1][0]][index[1][1]][1], // z
 			}};
 
-		// Map::drawWall(wall);
+		drawWall(wall);
 	}
 	glRotatef(-180.0, 0.0, 1.0, 0.0);
+	glTranslatef(0.0,50.0,0.0);
+
 }
 
 void Map::drawWall(float point[][2])

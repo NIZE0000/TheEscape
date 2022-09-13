@@ -2,8 +2,7 @@
 // Lib
 #include <pch.h>
 
-// Private classes
-// #include "header/class/Map.h"
+// class
 #include <Map.h>
 #include <MiniMap.h>
 #include <Player.h>
@@ -13,7 +12,7 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 1024
+#define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
@@ -187,12 +186,12 @@ void update(GLFWwindow *wnd)
 
 	minimap.updatePosition(&cx, &cy, &cz, G);
 
+	ghost.chasePlayer(&cx, &cy, &cz);
+
 	// get ghost position to draw
 	float gx, gy, gz;
 	ghost.getPosition(&gx, &gy, &gz);
 	minimap.updatePosition(&gx, &gy, &gz, R);
-
-	// std::cout<<int(G)<<endl;
 }
 
 void render(GLFWwindow *wnd)
@@ -212,17 +211,16 @@ void render(GLFWwindow *wnd)
 	camera.render();
 	camera.Debug(); // return log from class atrribute
 
+
 	// render map
 	map.render();
 	ghost.render();
-
-	glPopMatrix();
+	ghost.Debug(); // return log from class atrribute
 
 	// 2D section
-	glPushMatrix();
+	glLoadIdentity();
 	set_2D_projection();
 	minimap.render();
-	glPopMatrix();
 
 	glfwSwapBuffers(wnd);
 	glfwPollEvents();
@@ -254,11 +252,12 @@ int main()
 
 	// load texture
 	map.loadTexture();
+	ghost.loadTexture();
 
-	camera.setPosition(-230.0, -50.0, -220.0);
+	camera.setPosition(-230.0, 0.0, -220.0);
 	camera.setDegree(0.0, -90.0, 0.0);
 
-	ghost.setPosition(-220, 50, -230);
+	ghost.setPosition(220, 0.0, -220);
 	ghost.setDegree(0.0, 0.0, 0.0);
 
 	// Enter main loop

@@ -25,12 +25,9 @@ class Camera
 {
 public:
     // Camera Attributes
-    float pos[3] = {
-        0.0, 0.0, 0.0};
-    float dir[3] = {
-        0.0, 0.0, 0.0};
-    float rot[3] = {
-        0.0, 0.0, 0.0};
+    float pos[3];
+    float dir[3];
+    float rot[3];
 
     bool collision = false;
     float lastPos[3];
@@ -71,6 +68,12 @@ public:
         {
             this->pos[0] -= (this->pos[0] - this->lastPos[0]) * 0.51;
             this->pos[2] -= (this->pos[2] - this->lastPos[2]) * 0.51;
+
+            // if (this->dir[0] > 0 && this->dir[2] > 0) // +x +z
+            // {
+            //     this->pos[0] += (this->pos[0] - this->lastPos[0]) * this->dir[0];
+            //     this->pos[2] -= (this->pos[2] - this->lastPos[2]) * this->dir[2];
+            // }
 
             // this->collision = false;
             return;
@@ -119,39 +122,29 @@ public:
 
     void move(Camera_Movement direction, float deltaTime)
     {
-        if (direction == FORWARD || direction == BACKWARD)
-        {
-            this->dir[0] = sin(rot[1] * DEG_TO_RED);  // X
-            this->dir[2] = -cos(rot[1] * DEG_TO_RED); // Z
-        }
-        if (direction == LEFT || direction == RIGHT)
-        {
-            this->dir[0] = cos(rot[1] * DEG_TO_RED);  // X
-            this->dir[2] = -sin(rot[1] * DEG_TO_RED); // Z
-        }
 
         float velocity = MovementSpeed * deltaTime;
 
         if (direction == FORWARD)
         {
-            this->pos[0] -= this->dir[0] * velocity;
-            this->pos[2] -= this->dir[2] * velocity;
+            this->pos[0] += this->dir[0] * velocity;
+            this->pos[2] += this->dir[2] * velocity;
         }
 
         if (direction == BACKWARD)
         {
-            this->pos[0] += this->dir[0] * velocity;
-            this->pos[2] += this->dir[2] * velocity;
+            this->pos[0] -= this->dir[0] * velocity;
+            this->pos[2] -= this->dir[2] * velocity;
         }
         if (direction == LEFT)
         {
-            this->pos[0] += this->dir[0] * velocity;
-            this->pos[2] -= this->dir[2] * velocity;
+            this->pos[0] += this->dir[2] * velocity;
+            this->pos[2] -= this->dir[0] * velocity;
         }
         if (direction == RIGHT)
         {
-            this->pos[0] += -this->dir[0] * velocity;
-            this->pos[2] += this->dir[2] * velocity;
+            this->pos[0] -= this->dir[2] * velocity;
+            this->pos[2] += this->dir[0] * velocity;
         }
     }
 
@@ -184,6 +177,8 @@ public:
 
     void Debug()
     {
+        std::cout << " Player camera: " << std::endl;
+
         // Debug dir pos rot
         std::cout << " dir " << this->dir[0] << ", " << this->dir[1] << ", " << this->dir[2] << std::endl;
         std::cout << " pos " << this->pos[0] << ", " << this->pos[1] << ", " << this->pos[2] << std::endl;
@@ -208,10 +203,15 @@ private:
             this->rot[0] = -89;
         }
 
+        // calculate direction
+        this->dir[0] = -cos((rot[1] - 90) * DEG_TO_RED); // X
+        this->dir[2] = -sin((rot[1] - 90) * DEG_TO_RED); // Z
+
         glPushMatrix();
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
         glRotatef(this->rot[1], 0.0, 1.0, 0.0);
-        glTranslatef(this->pos[0], this->pos[1], this->pos[2]);
+        glRotatef(this->rot[2], 0.0, 0.0, 1.0);
+        glTranslatef(this->pos[0], -this->pos[1], this->pos[2]);
         glPopMatrix;
     }
 };

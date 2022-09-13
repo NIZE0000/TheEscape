@@ -1,6 +1,7 @@
 #pragma once
 
 #include <pch.h>
+#include <texture.h>
 
 class Ghost
 {
@@ -17,13 +18,19 @@ private:
         LEFT,
         RIGHT
     };
+    Texture2D ghost;
+
+    void update();
+    void move(Movement direction, float deltaTime);
 
 public:
     Ghost(/* args */);
     ~Ghost();
+    void loadTexture();
     void setPosition(float x, float y, float z);
     void getPosition(float *x, float *y, float *z);
     void setDegree(float x, float y, float z);
-    void move(Movement direction, float deltaTime);
+    void chasePlayer(float *x, float *y, float *z);
     void render();
+    void Debug();
 };
