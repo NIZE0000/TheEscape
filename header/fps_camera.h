@@ -16,7 +16,7 @@ enum Camera_Movement
 };
 
 // Default camera values
-const float SPEED = 2.5f;
+const float SPEED = 80;
 const float MouseSensitivity = 0.1;
 const float DEG_TO_RED = 0.017453293;
 
@@ -31,6 +31,7 @@ public:
 
     bool collision = false;
     float lastPos[3];
+    float deltatime;
 
     // Camera options
     float MovementSpeed;
@@ -80,7 +81,7 @@ public:
             this->lastPos[2] = this->pos[2];
         }
 
-        float delta = 0.8;
+        float delta = this->deltatime;
 
         if (glfwGetKey(wnd, GLFW_KEY_W) == GLFW_PRESS)
         {

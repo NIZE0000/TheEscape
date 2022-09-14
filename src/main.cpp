@@ -32,6 +32,10 @@ void render(GLFWwindow *wnd);
 
 float mx;
 float my;
+
+float deltatime;
+float lastFrame;
+
 // Player player;
 Camera camera;
 Scene scene;
@@ -146,6 +150,7 @@ void run(GLFWwindow *wnd)
 	cout << "Start runing the main loop..." << endl;
 	while (!glfwWindowShouldClose(wnd))
 	{
+
 		process_keys(wnd);
 		update(wnd);
 		render(wnd);
@@ -178,6 +183,15 @@ void process_keys(GLFWwindow *wnd)
 
 void update(GLFWwindow *wnd)
 {
+	double currentTime = glfwGetTime();
+	deltatime = currentTime - lastFrame;
+	lastFrame = currentTime;
+
+	camera.deltatime = deltatime;
+	ghost.deltatime = deltatime;
+
+	std::cout<< deltatime<< std::endl;
+
 	// get player position to draw
 	float cx, cy, cz;
 	camera.getPosition(&cx, &cy, &cz);

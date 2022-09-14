@@ -3,7 +3,7 @@
 
 Ghost::Ghost(/* args */)
 {
-    this->MovementSpeed = 2.5;
+    this->MovementSpeed = 60;
 }
 
 Ghost::~Ghost()
@@ -47,7 +47,7 @@ void Ghost::render()
     float width = 0, height = 25, depth = 25;
 
     this->ghost.Bind(); // binding texture
-    {          
+    {
 
         glPushAttrib(GL_TEXTURE_BIT);
         glEnable(GL_TEXTURE_2D);
@@ -68,38 +68,13 @@ void Ghost::render()
     }
 }
 
-void Ghost::move(Movement direction, float deltaTime)
-{
-    float velocity = MovementSpeed * deltaTime;
-
-    if (direction == FORWARD)
-    {
-        this->pos[0] += this->dir[0] * velocity;
-        this->pos[2] += this->dir[2] * velocity;
-    }
-
-    if (direction == BACKWARD)
-    {
-        this->pos[0] -= this->dir[0] * velocity;
-        this->pos[2] -= this->dir[2] * velocity;
-    }
-    if (direction == LEFT)
-    {
-        this->pos[0] += this->dir[2] * velocity;
-        this->pos[2] -= this->dir[0] * velocity;
-    }
-    if (direction == RIGHT)
-    {
-        this->pos[0] -= this->dir[2] * velocity;
-        this->pos[2] += this->dir[0] * velocity;
-    }
-}
-
 void Ghost::chasePlayer(float *x, float *y, float *z)
 {
-    float delta = 0.5;
-    float speedRot = 5;
+    float deltaTime = this->deltatime;
+    float speedRot = 2;
     float space = 10;
+
+    float velocity = MovementSpeed * deltaTime;
 
     // get player position and chasing
     float d, dx, dz;
@@ -112,8 +87,8 @@ void Ghost::chasePlayer(float *x, float *y, float *z)
 
     if ((int(this->dir[0]) == int(dx / d) || int(this->dir[2]) == int(dz / d)) && d > space)
     {
-        this->pos[0] -= this->dir[0];
-        this->pos[2] += this->dir[2];
+        this->pos[0] -= this->dir[0] * velocity;
+        this->pos[2] += this->dir[2] * velocity;
     }
 
     if (this->dir[0] > dx / d && this->dir[2] > dz / d) // >>
