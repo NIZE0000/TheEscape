@@ -12,8 +12,8 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 1024
+#define SCREEN_WIDTH 512
+#define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
 
@@ -214,8 +214,6 @@ void render(GLFWwindow *wnd)
 
 	// 3D section
 	set_3D_projection();
-
-	glPushMatrix();
 
 	// camera or player
 	camera.render();

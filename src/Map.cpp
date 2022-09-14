@@ -154,12 +154,14 @@ void Map::drawWall(float point[][2])
 void Map::drawDoor()
 {
 
-	glTranslatef(this->doorPos[0], this->doorPos[1], this->doorPos[2]);
 
 	float width = 0, height = 40, depth = 25;
 
+	glPushMatrix();
+
+	glTranslatef(this->doorPos[0], this->doorPos[1], this->doorPos[2]);
 	glTranslatef(0.0, height, 0.0);
-	glRotatef(this->doorRot,0.0,0.0,1.0);
+	glRotatef(this->doorRot, 0.0, 0.0, 1.0);
 
 	glColor3f(0.0, 0.0, 1.0);
 
@@ -174,11 +176,7 @@ void Map::drawDoor()
 	glVertex3f(width, height, depth);
 	glEnd();
 
-	glRotatef(-this->doorRot,0.0,1.0,0.0);
-	glTranslatef(0.0, -height, 0.0);
-	glTranslatef(-this->doorPos[0], -this->doorPos[1], -this->doorPos[2]);
-
-
+	glPopMatrix();
 }
 
 void Map::getDoorPos(float *x, float *y, float *z)
