@@ -69,11 +69,7 @@ public:
             this->pos[0] -= (this->pos[0] - this->lastPos[0]) * 0.51;
             this->pos[2] -= (this->pos[2] - this->lastPos[2]) * 0.51;
 
-            // if (this->dir[0] > 0 && this->dir[2] > 0) // +x +z
-            // {
-            //     this->pos[0] += (this->pos[0] - this->lastPos[0]) * this->dir[0];
-            //     this->pos[2] -= (this->pos[2] - this->lastPos[2]) * this->dir[2];
-            // }
+ 
 
             // this->collision = false;
             return;
@@ -207,12 +203,12 @@ private:
         this->dir[0] = -cos((rot[1] - 90) * DEG_TO_RED); // X
         this->dir[2] = -sin((rot[1] - 90) * DEG_TO_RED); // Z
 
-        glPushMatrix();
+        // glPushMatrix();
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
         glRotatef(this->rot[1], 0.0, 1.0, 0.0);
         glRotatef(this->rot[2], 0.0, 0.0, 1.0);
         glTranslatef(this->pos[0], -this->pos[1], this->pos[2]);
-        glPopMatrix;
+        // glPopMatrix;
     }
 };
 #endif

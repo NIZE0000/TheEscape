@@ -31,9 +31,9 @@ Map::Map()
 void Map::loadTexture()
 {
 	this->ground.ID = 0;
-	this->ground.Generate("assets/textures/ground.jpg", 512, 512);
+	this->ground.Generate("../assets/textures/ground.jpg", 512, 512);
 	this->wall.ID = 1;
-	this->wall.Generate("assets/textures/wall.jpg", 500, 500);
+	this->wall.Generate("../assets/textures/wall.jpg", 500, 500);
 }
 
 Map::~Map()
@@ -45,7 +45,7 @@ Map::~Map()
 
 void Map::render()
 {
-	glTranslatef(0.0,-50.0,0.0);
+	glTranslatef(0.0, -50.0, 0.0);
 
 	this->ground.Bind(); // binding ground texture
 	{					 // render ground
@@ -88,6 +88,7 @@ void Map::render()
 	}
 
 	// render wall
+
 	glColor3f(0.6, 0.6, 0.6);
 	glRotatef(180.0, 0.0, 1.0, 0.0);
 
@@ -110,9 +111,12 @@ void Map::render()
 
 		drawWall(wall);
 	}
-	glRotatef(-180.0, 0.0, 1.0, 0.0);
-	glTranslatef(0.0,50.0,0.0);
 
+	drawDoor();
+
+	glTranslatef(0.0, 50.0, 0.0);
+
+	glRotatef(-180.0, 0.0, 1.0, 0.0);
 }
 
 void Map::drawWall(float point[][2])
@@ -145,6 +149,55 @@ void Map::drawWall(float point[][2])
 	glEnd();
 
 	glPopAttrib();
+}
+
+void Map::drawDoor()
+{
+
+	glTranslatef(this->doorPos[0], this->doorPos[1], this->doorPos[2]);
+
+	float width = 0, height = 40, depth = 25;
+
+	glTranslatef(0.0, height, 0.0);
+	glRotatef(this->doorRot,0.0,1.0,0.0);
+
+	glColor3f(0.0, 0.0, 1.0);
+
+	glBegin(GL_TRIANGLE_STRIP);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(width, -height, -depth);
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(width, -height, depth);
+	glTexCoord2f(0.0, 1.0);
+	glVertex3f(width, height, -depth);
+	glTexCoord2f(1.0, 1.0);
+	glVertex3f(width, height, depth);
+	glEnd();
+
+	glRotatef(-this->doorRot,0.0,1.0,0.0);
+	glTranslatef(0.0, -height, 0.0);
+	glTranslatef(-this->doorPos[0], -this->doorPos[1], -this->doorPos[2]);
+
+
+}
+
+void Map::getDoorPos(float *x, float *y, float *z)
+{
+	*x = this->doorPos[0];
+	*y = this->doorPos[1];
+	*z = this->doorPos[2];
+}
+
+void Map::setDoorPos(float x, float y, float z)
+{
+	this->doorPos[0] = x;
+	this->doorPos[1] = y;
+	this->doorPos[2] = z;
+}
+
+void Map::setDoorRot(float rotate)
+{
+	this->doorRot = rotate;
 }
 
 bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision

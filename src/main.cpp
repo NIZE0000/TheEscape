@@ -7,12 +7,13 @@
 #include <MiniMap.h>
 #include <Player.h>
 #include <Ghost.h>
+#include <Scene.h>
 #include <fps_camera.h>
 
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 512
+#define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
@@ -32,10 +33,11 @@ void render(GLFWwindow *wnd);
 
 float mx;
 float my;
-Player player;
+// Player player;
+Camera camera;
+Scene scene;
 Map map;
 MiniMap minimap;
-Camera camera;
 Ghost ghost;
 
 bool firstMouse = true;
@@ -192,6 +194,15 @@ void update(GLFWwindow *wnd)
 	float gx, gy, gz;
 	ghost.getPosition(&gx, &gy, &gz);
 	minimap.updatePosition(&gx, &gy, &gz, R);
+
+	// get door position
+	float dx, dy, dz;
+	map.getDoorPos(&dx, &dy, &dz);
+
+	// scene check logic to show gameover or servive
+	scene.updateLogic(&cx, &cz,
+					  &gx, &gz,
+					  &dx, &dz);
 }
 
 void render(GLFWwindow *wnd)
@@ -211,7 +222,6 @@ void render(GLFWwindow *wnd)
 	camera.render();
 	// camera.Debug(); // return log from class atrribute
 
-
 	// render map
 	map.render();
 	ghost.render();
@@ -221,6 +231,7 @@ void render(GLFWwindow *wnd)
 	glLoadIdentity();
 	set_2D_projection();
 	minimap.render();
+	scene.render();
 
 	glfwSwapBuffers(wnd);
 	glfwPollEvents();
@@ -254,10 +265,13 @@ int main()
 	map.loadTexture();
 	ghost.loadTexture();
 
+	map.setDoorPos(-255.0, 0.0, 210.0);
+	map.setDoorRot(180.0);
+
 	camera.setPosition(-230.0, 0.0, -220.0);
 	camera.setDegree(0.0, -90.0, 0.0);
 
-	ghost.setPosition(220, 0.0, -220);
+	ghost.setPosition(220, -20.0, -220);
 	ghost.setDegree(0.0, 0.0, 0.0);
 
 	// Enter main loop

@@ -16,7 +16,7 @@ void Ghost::loadTexture()
     this->ghost.ID = 2;
     this->ghost.Image_Format = GL_RGBA;
     this->ghost.Internal_Format = GL_RGBA;
-    this->ghost.Generate("assets/textures/ghost.png", 600, 600);
+    this->ghost.Generate("../assets/textures/ghost.png", 600, 600);
 }
 
 void Ghost::setPosition(float x, float y, float z)
@@ -48,8 +48,8 @@ void Ghost::render()
 
     float width = 0, height = 25, depth = 25;
 
-    this->ghost.Bind(); // binding ground texture
-    {                   // render ground
+    this->ghost.Bind(); // binding texture
+    {          
 
         glPushAttrib(GL_TEXTURE_BIT);
         glEnable(GL_TEXTURE_2D);
@@ -64,18 +64,6 @@ void Ghost::render()
         glVertex3f(width, height, -depth);
         glTexCoord2f(1.0, 1.0);
         glVertex3f(width, height, depth);
-        glEnd();
-
-        glColor3f(1.0, 1.0, 1.0);
-        glBegin(GL_TRIANGLE_STRIP);
-        glTexCoord2f(0.0, 0.0);
-        glVertex3f(width, -height, depth);
-        glTexCoord2f(1.0, 0.0);
-        glVertex3f(width, -height, -depth);
-        glTexCoord2f(0.0, 1.0);
-        glVertex3f(width, height, depth);
-        glTexCoord2f(1.0, 1.0);
-        glVertex3f(width, height, -depth);
         glEnd();
 
         glPopAttrib();
@@ -110,37 +98,45 @@ void Ghost::move(Movement direction, float deltaTime)
 }
 
 void Ghost::chasePlayer(float *x, float *y, float *z)
-{ // get player position and chasing
+{
     float delta = 0.5;
-    float space = 20;
+    float speedRot = 5;
+    float space = 10;
 
+    // get player position and chasing
+    float d, dx, dz;
 
-    float degree = *180/3.145;
-    std::cout<<degree
+    dx = (*x - this->pos[0]);
+    dz = (*z - this->pos[2]);
+    d = sqrt((dx * dx) + (dz * dz));
+    // std::cout << dx / d << ", " << dz / d << std::endl;
+    // std::cout << d << std::endl;
 
-    if (this->dir[2] != 1)
+    if ((int(this->dir[0]) == int(dx / d) || int(this->dir[2]) == int(dz / d)) && d > space)
     {
-        rot[1] -= 1;
+        this->pos[0] -= this->dir[0];
+        this->pos[2] += this->dir[2];
+    }
+
+    if (this->dir[0] > dx / d && this->dir[2] > dz / d) // >>
+    {
+        this->rot[1] -= speedRot;
         return;
     }
-
-    if (this->pos[0] + space > *x)
+    if (this->dir[0] > dx / d && this->dir[2] < dz / d) // ><
     {
-        move(RIGHT, delta);
+        this->rot[1] += speedRot;
+        return;
     }
-    if (this->pos[0] - space < *x)
+    if (this->dir[0]<dx / d &&this->dir[2]> dz / d) //<>
     {
-
-        move(LEFT, delta);
+        this->rot[1] += speedRot;
+        return;
     }
-    if (this->pos[2] + space > *z)
+    if (this->dir[0] < dx / d && this->dir[2] < dz / d) //<<
     {
-
-        move(BACKWARD, delta);
-    }
-    if (this->pos[2] - space < *z)
-    {
-        move(FORWARD, delta);
+        this->rot[1] -= speedRot;
+        return;
     }
 }
 

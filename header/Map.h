@@ -18,6 +18,11 @@ public:
 	void render();
 	void loadTexture();
 	bool checkCollision(float *x, float *y, float *z);
+
+	void getDoorPos(float *x, float *y, float *z);
+	void setDoorPos(float x, float y, float z);
+	void setDoorRot(float rotate);
+
 	Texture2D ground;
 	Texture2D wall;
 
@@ -50,8 +55,12 @@ private:
 	float grid;
 	float wallHeight;
 	float bound[7][7][2];
+	float doorPos[3];
+	float doorRot;
 
 	void drawWall(float point[][2]);
+
+	void drawDoor();
 };
 
 #endif /* SRC_MAP_H_ */
