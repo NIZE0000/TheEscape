@@ -161,7 +161,7 @@ void Map::drawDoor()
 
 	glTranslatef(this->doorPos[0], this->doorPos[1], this->doorPos[2]);
 	glTranslatef(0.0, height, 0.0);
-	glRotatef(this->doorRot, 0.0, 0.0, 1.0);
+	glRotatef(this->doorRot, 0.0, 1.0, 0.0);
 
 	glColor3f(0.0, 0.0, 1.0);
 
