@@ -159,7 +159,7 @@ void Map::drawDoor()
 	float width = 0, height = 40, depth = 25;
 
 	glTranslatef(0.0, height, 0.0);
-	glRotatef(this->doorRot,0.0,1.0,0.0);
+	glRotatef(this->doorRot,0.0,0.0,1.0);
 
 	glColor3f(0.0, 0.0, 1.0);
 
