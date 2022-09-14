@@ -1,0 +1,139 @@
+#pragma once
+#include <pch.h>
+#include <texture.h>
+
+class Scene
+{
+private:
+    /* data */
+    bool gameover;
+    bool survive;
+
+    void GameOver();
+    void Survive();
+    Texture2D GAMEOVER;
+    Texture2D SURVIVE;
+
+public:
+    Scene(/* args */);
+    ~Scene();
+    void loadTexture();
+    void render();
+    void updateLogic(float *cx, float *cz,
+                     float *gx, float *gz,
+                     float *dx, float *dz);
+};
+
+Scene::Scene(/* args */)
+{
+}
+
+Scene::~Scene()
+{
+    this->GAMEOVER.Delete();
+    this->SURVIVE.Delete();
+}
+
+void Scene::loadTexture()
+{
+    this->GAMEOVER.ID = 4;
+    this->GAMEOVER.Image_Format = GL_RGBA;
+    this->GAMEOVER.Internal_Format = GL_RGBA;
+    this->GAMEOVER.Generate("assets/textures/gameover.png", 512, 512);
+
+    this->SURVIVE.ID = 5;
+    this->SURVIVE.Image_Format = GL_RGBA;
+    this->SURVIVE.Internal_Format = GL_RGBA;
+    this->SURVIVE.Generate("assets/textures/survive.png", 512, 512);
+}
+
+void Scene::render()
+{
+    glTranslatef(+256.0, +256.0, 0.0);
+    glRotatef(90, 0.0, 0.0, 1.0);
+    glTranslatef(-256.0, -256.0, 0.0);
+
+    if (this->gameover)
+    {
+
+        GameOver();
+        return;
+    }
+    if (this->survive)
+    {
+        Survive();
+        return;
+    }
+}
+
+void Scene::GameOver()
+{
+    this->GAMEOVER.Bind();
+
+    glPushAttrib(GL_TEXTURE_BIT);
+    glEnable(GL_TEXTURE_2D);
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_TRIANGLE_STRIP);
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(0.0, 0.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(512.0, 0.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(0.0, 512.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex2f(512.0, 512.0);
+    glEnd();
+
+    glPopAttrib();
+}
+
+void Scene::Survive()
+{
+    this->SURVIVE.Bind();
+
+    glPushAttrib(GL_TEXTURE_BIT);
+    glEnable(GL_TEXTURE_2D);
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_TRIANGLE_STRIP);
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(0.0, 0.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(512.0, 0.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(0.0, 512.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex2f(512.0, 512.0);
+    glEnd();
+
+    glPopAttrib();
+}
+
+void Scene::updateLogic(float *cx, float *cz,
+                        float *gx, float *gz,
+                        float *dx, float *dz)
+{
+
+    float disDoor = sqrt(pow(*cx - *dx, 2) + pow(*cz - *dz, 2));
+    float disGhost = sqrt(pow(*cx - *gx, 2) + pow(*cz - *gz, 2));
+
+    if (disDoor < 10) // player position == door
+    {
+        this->survive = true;
+        return;
+    }
+    // else
+    // {
+    //     this->survive = false;
+    // }
+    if (disGhost < 10) // player position == ghost posiition +- space
+    {
+        this->gameover = true;
+        return;
+    }
+    // else
+    // {
+    //     this->gameover = false;
+    // }
+}

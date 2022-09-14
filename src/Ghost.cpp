@@ -16,7 +16,7 @@ void Ghost::loadTexture()
     this->ghost.ID = 2;
     this->ghost.Image_Format = GL_RGBA;
     this->ghost.Internal_Format = GL_RGBA;
-    this->ghost.Generate("../assets/textures/ghost.png", 600, 600);
+    this->ghost.Generate("assets/textures/ghost.png", 600, 600);
 }
 
 void Ghost::setPosition(float x, float y, float z)
@@ -43,8 +43,6 @@ void Ghost::setDegree(float x, float y, float z)
 void Ghost::render()
 {
     update();
-
-    // glColor3f(1.0, 0.0, 0.0);
 
     float width = 0, height = 25, depth = 25;
 

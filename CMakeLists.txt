@@ -24,4 +24,4 @@ endif ()
 
 target_link_directories(${PROJECT_NAME} PUBLIC build/external/glfw/src)
 
-target_link_libraries(${PROJECT_NAME} glfw ${PLAT_SPEC_LIBS})
+target_link_libraries(${PROJECT_NAME} glfw  ${PLAT_SPEC_LIBS})

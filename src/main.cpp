@@ -5,7 +5,6 @@
 // class
 #include <Map.h>
 #include <MiniMap.h>
-#include <Player.h>
 #include <Ghost.h>
 #include <Scene.h>
 #include <fps_camera.h>
@@ -14,7 +13,7 @@ using namespace std;
 
 // Constants
 #define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 512
+#define SCREEN_HEIGHT 1024
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
 
@@ -199,7 +198,7 @@ void update(GLFWwindow *wnd)
 	float dx, dy, dz;
 	map.getDoorPos(&dx, &dy, &dz);
 
-	// scene check logic to show gameover or servive
+	// scene check logic to show gameover or survive
 	scene.updateLogic(&cx, &cz,
 					  &gx, &gz,
 					  &dx, &dz);
@@ -264,6 +263,7 @@ int main()
 	// load texture
 	map.loadTexture();
 	ghost.loadTexture();
+	scene.loadTexture();
 
 	map.setDoorPos(-255.0, 0.0, 210.0);
 	map.setDoorRot(180.0);
