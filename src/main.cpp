@@ -190,7 +190,7 @@ void update(GLFWwindow *wnd)
 	camera.deltatime = deltatime;
 	ghost.deltatime = deltatime;
 
-	std::cout<< deltatime<< std::endl;
+	// std::cout<< deltatime<< std::endl;
 
 	// get player position to draw
 	float cx, cy, cz;
