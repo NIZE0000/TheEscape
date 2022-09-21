@@ -3,7 +3,6 @@
 
 Ghost::Ghost(/* args */)
 {
-    this->MovementSpeed = 60;
 }
 
 Ghost::~Ghost()
@@ -16,7 +15,7 @@ void Ghost::loadTexture()
     this->ghost.ID = 2;
     this->ghost.Image_Format = GL_RGBA;
     this->ghost.Internal_Format = GL_RGBA;
-    this->ghost.Generate("assets/textures/ghost.png", 600, 600);
+    this->ghost.Generate("../assets/textures/ghost.png", 600, 600);
 }
 
 void Ghost::setPosition(float x, float y, float z)

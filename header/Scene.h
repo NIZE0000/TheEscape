@@ -39,12 +39,12 @@ void Scene::loadTexture()
     this->GAMEOVER.ID = 4;
     this->GAMEOVER.Image_Format = GL_RGBA;
     this->GAMEOVER.Internal_Format = GL_RGBA;
-    this->GAMEOVER.Generate("assets/textures/gameover.png", 512, 512);
+    this->GAMEOVER.Generate("../assets/textures/gameover.png", 512, 512);
 
     this->SURVIVE.ID = 5;
     this->SURVIVE.Image_Format = GL_RGBA;
     this->SURVIVE.Internal_Format = GL_RGBA;
-    this->SURVIVE.Generate("assets/textures/survive.png", 512, 512);
+    this->SURVIVE.Generate("../assets/textures/survive.png", 512, 512);
 }
 
 void Scene::render()

@@ -25,6 +25,7 @@ public:
 
 	Texture2D ground;
 	Texture2D wall;
+	Texture2D door;
 
 	int walls[19][2][2] = {
 		// refer to index

@@ -9,7 +9,7 @@ private:
     float pos[3];
     float rot[3];
     float dir[3];
-    float MovementSpeed;
+    float MovementSpeed=70;
     const float DEG_TO_RED = 0.017453293;
     enum Movement
     {

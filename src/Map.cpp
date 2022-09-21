@@ -31,9 +31,12 @@ Map::Map()
 void Map::loadTexture()
 {
 	this->ground.ID = 0;
-	this->ground.Generate("assets/textures/ground.jpg", 512, 512);
+	this->ground.Generate("../assets/textures/ground.jpg", 512, 512);
 	this->wall.ID = 1;
-	this->wall.Generate("assets/textures/wall.jpg", 500, 500);
+	this->wall.Generate("../assets/textures/wall.jpg", 500, 500);
+
+	this->door.ID = 10;
+	this->door.Generate("../assets/textures/door.jpg", 512, 1024);
 }
 
 Map::~Map()
@@ -154,8 +157,12 @@ void Map::drawWall(float point[][2])
 void Map::drawDoor()
 {
 
-
 	float width = 0, height = 40, depth = 25;
+
+	glPushAttrib(GL_TEXTURE_BIT);
+	glEnable(GL_TEXTURE_2D);
+
+	this->door.Bind();
 
 	glPushMatrix();
 
@@ -163,7 +170,7 @@ void Map::drawDoor()
 	glTranslatef(0.0, height, 0.0);
 	glRotatef(this->doorRot, 0.0, 1.0, 0.0);
 
-	glColor3f(0.0, 0.0, 1.0);
+	glColor3f(1.0, 1.0, 1.0);
 
 	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(0.0, 0.0);
@@ -176,6 +183,7 @@ void Map::drawDoor()
 	glVertex3f(width, height, depth);
 	glEnd();
 
+	glPopAttrib();
 	glPopMatrix();
 }
 
@@ -221,9 +229,10 @@ bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 				this->bound[index[1][0]][index[1][1]][1], // z
 			}};
 
-		bool collisionX = false, collisionZ = false;
+		bool collisionX = false;
+		bool collisionZ = false;
 
-		// collision x-axis?
+		// collision x-axis
 		if ((*x - space <= wall[0][0] &&
 			 *x + space >= wall[1][0]) ||
 			(*x + space > wall[0][0] &&
@@ -232,7 +241,7 @@ bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 			collisionX = true;
 		}
 
-		// collision z-axis?
+		// collision z-axis
 		if ((*z - space <= wall[0][1] &&
 			 *z + space >= wall[1][1]) ||
 			(*z + space > wall[0][1] &&
@@ -247,14 +256,6 @@ bool Map::checkCollision(float *x, float *y, float *z) // AABB - AABB collision
 
 			return true;
 		}
-
-		// -256, 256 -170.667, 256 -85.3333, 256 0, 256 85.3333, 256 170.667, 256 256, 256
-		// -256, 170.667 -170.667, 170.667 -85.3333, 170.667 0, 170.667 85.3333, 170.667 170.667, 170.667 256, 170.667
-		// -256, 85.3333 -170.667, 85.3333 -85.3333, 85.3333 0, 85.3333 85.3333, 85.3333 170.667, 85.3333 256, 85.3333
-		// -256, 0 -170.667, 0 -85.3333, 0 0, 0 85.3333, 0 170.667, 0 256, 0
-		// -256, -85.3333 -170.667, -85.3333 -85.3333, -85.3333 0, -85.3333 85.3333, -85.3333 170.667, -85.3333 256, -85.3333
-		// -256, -170.667 -170.667, -170.667 -85.3333, -170.667 0, -170.667 85.3333, -170.667 170.667, -170.667 256, -170.667
-		// -256, -256 -170.667, -256 -85.3333, -256 0, -256 85.3333, -256 170.667, -256 256, -256
 	}
 
 	return false;

@@ -2,7 +2,7 @@
 // Lib
 #include <pch.h>
 
-// class
+// Class
 #include <Map.h>
 #include <MiniMap.h>
 #include <Ghost.h>
@@ -12,8 +12,8 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 512
+#define SCREEN_WIDTH 700
+#define SCREEN_HEIGHT 700
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
 
@@ -178,6 +178,7 @@ void process_keys(GLFWwindow *wnd)
 		xoffset = 0;
 		yoffset = 0;
 	}
+
 	camera.ProcessMouseMovement(xoffset, yoffset, GL_TRUE);
 }
 
@@ -189,8 +190,6 @@ void update(GLFWwindow *wnd)
 
 	camera.deltatime = deltatime;
 	ghost.deltatime = deltatime;
-
-	// std::cout<< deltatime<< std::endl;
 
 	// get player position to draw
 	float cx, cy, cz;
@@ -277,18 +276,25 @@ int main()
 	ghost.loadTexture();
 	scene.loadTexture();
 
+	// set position
 	map.setDoorPos(-255.0, 0.0, 210.0);
 	map.setDoorRot(180.0);
 
 	camera.setPosition(-230.0, 0.0, -220.0);
 	camera.setDegree(0.0, -90.0, 0.0);
 
-	ghost.setPosition(220, -20.0, -220);
+	ghost.setPosition(rand() % 250 - (rand() % 250), -20.0, rand() % 250 - (rand() % 250));
 	ghost.setDegree(0.0, 0.0, 0.0);
 
+	
 	// Enter main loop
 	run(gl_wnd);
 
+	map.~Map();
+	ghost.~Ghost();
+	scene.~Scene();
+
+	
 	// Done.
 	// system("PAUSE");
 	return 0;
