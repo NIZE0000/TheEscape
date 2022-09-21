@@ -250,7 +250,8 @@ void render(GLFWwindow *wnd)
 		ghost.~Ghost();
 		// scene.~Scene();
 	}
-
+	
+	set_2D_projection();
 	scene.render();
 
 	glfwSwapBuffers(wnd);
