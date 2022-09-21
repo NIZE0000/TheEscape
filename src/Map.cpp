@@ -159,12 +159,12 @@ void Map::drawDoor()
 
 	float width = 0, height = 40, depth = 25;
 
+	glPushMatrix();
 	glPushAttrib(GL_TEXTURE_BIT);
 	glEnable(GL_TEXTURE_2D);
 
 	this->door.Bind();
 
-	glPushMatrix();
 
 	glTranslatef(this->doorPos[0], this->doorPos[1], this->doorPos[2]);
 	glTranslatef(0.0, height, 0.0);
@@ -173,13 +173,13 @@ void Map::drawDoor()
 	glColor3f(1.0, 1.0, 1.0);
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(width, -height, -depth);
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(width, -height, depth);
-	glTexCoord2f(0.0, 1.0);
-	glVertex3f(width, height, -depth);
 	glTexCoord2f(1.0, 1.0);
+	glVertex3f(width, -height, -depth);
+	glTexCoord2f(0.0, 1.0);
+	glVertex3f(width, -height, depth);
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(width, height, -depth);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(width, height, depth);
 	glEnd();
 

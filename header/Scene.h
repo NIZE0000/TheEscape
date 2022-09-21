@@ -6,8 +6,7 @@ class Scene
 {
 private:
     /* data */
-    bool gameover;
-    bool survive;
+    
 
     void GameOver();
     void Survive();
@@ -15,6 +14,9 @@ private:
     Texture2D SURVIVE;
 
 public:
+    bool gameover;
+    bool survive;
+
     Scene(/* args */);
     ~Scene();
     void loadTexture();

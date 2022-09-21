@@ -225,22 +225,32 @@ void render(GLFWwindow *wnd)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	// 3D section
-	set_3D_projection();
+	if (!scene.gameover || !scene.survive)
+	{
+		// 3D section
+		set_3D_projection();
 
-	// camera or player
-	camera.render();
-	// camera.Debug(); // return log from class atrribute
+		// camera or player
+		camera.render();
+		// camera.Debug(); // return log from class atrribute
 
-	// render map
-	map.render();
-	ghost.render();
-	// ghost.Debug(); // return log from class atrribute
+		// render map
+		map.render();
+		ghost.render();
+		// ghost.Debug(); // return log from class atrribute
 
-	// 2D section
-	glLoadIdentity();
-	set_2D_projection();
-	minimap.render();
+		// 2D section
+		glLoadIdentity();
+		set_2D_projection();
+		minimap.render();
+	}
+	else
+	{
+		map.~Map();
+		ghost.~Ghost();
+		// scene.~Scene();
+	}
+
 	scene.render();
 
 	glfwSwapBuffers(wnd);
@@ -286,7 +296,6 @@ int main()
 	ghost.setPosition(rand() % 250 - (rand() % 250), -20.0, rand() % 250 - (rand() % 250));
 	ghost.setDegree(0.0, 0.0, 0.0);
 
-	
 	// Enter main loop
 	run(gl_wnd);
 
@@ -294,7 +303,6 @@ int main()
 	ghost.~Ghost();
 	scene.~Scene();
 
-	
 	// Done.
 	// system("PAUSE");
 	return 0;
