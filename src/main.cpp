@@ -225,7 +225,7 @@ void render(GLFWwindow *wnd)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	if (!scene.gameover || !scene.survive)
+	if (!scene.gameover && !scene.survive)
 	{
 		// 3D section
 		set_3D_projection();
@@ -248,6 +248,8 @@ void render(GLFWwindow *wnd)
 	{
 		map.~Map();
 		ghost.~Ghost();
+		camera.~Camera();
+		
 		// scene.~Scene();
 	}
 	
@@ -292,7 +294,7 @@ int main()
 	map.setDoorRot(180.0);
 
 	camera.setPosition(-230.0, 0.0, -220.0);
-	camera.setDegree(0.0, -90.0, 0.0);
+	camera.setDegree(0.0, rand()%360, 0.0);
 
 	ghost.setPosition(rand() % 250 - (rand() % 250), -20.0, rand() % 250 - (rand() % 250));
 	ghost.setDegree(0.0, 0.0, 0.0);

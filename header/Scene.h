@@ -120,7 +120,7 @@ void Scene::updateLogic(float *cx, float *cz,
     float disDoor = sqrt(pow(*cx - *dx, 2) + pow(*cz - *dz, 2));
     float disGhost = sqrt(pow(*cx - *gx, 2) + pow(*cz - *gz, 2));
 
-    if (disDoor < 10) // player position == door
+    if (disDoor < 10 && !this->gameover) // player position == door
     {
         this->survive = true;
         return;
@@ -129,7 +129,7 @@ void Scene::updateLogic(float *cx, float *cz,
     // {
     //     this->survive = false;
     // }
-    if (disGhost < 10) // player position == ghost posiition +- space
+    if (disGhost < 10 && !this->survive) // player position == ghost posiition +- space
     {
         this->gameover = true;
         return;
