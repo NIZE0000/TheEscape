@@ -15,15 +15,15 @@ Build with C Make
 Step How to build it?
 
 clone the repositiory
-```sh
-git clone "https://github.com/NicEKuN/TheEscape.git"
-```
+    ```sh
+    git clone https://github.com/NicEKuN/TheEscape.git
+    ```
 
 clone submodule
 
-```sh
-git submodules init
-```
-```sh
-git submodules update 
-```
+    ```sh
+    git submodules init
+    ```
+    ```sh
+    git submodules update 
+    ```
