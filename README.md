@@ -18,6 +18,8 @@ clone the repositiory
 * git clone 
 
 clone submodule
-* git submodules init
+*
+``` git submodules init
+```
 * git submodules update 
 
