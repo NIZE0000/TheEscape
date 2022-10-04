@@ -26,4 +26,4 @@ git submodules init
 ```sh
 git submodules update 
 ```
-then build excute file with CMake.
+then build execution file with CMake.
