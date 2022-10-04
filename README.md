@@ -12,13 +12,12 @@ Build with C Make
 * Already check it can run on Linux and Windows.
 * if you want to run on MacOS maybe you have to change CMakeList.txt before build this project.
 
-Step How to build it?
+How to build it?
 
 clone the repositiory
 ```sh
 git clone https://github.com/NicEKuN/TheEscape.git
 ```
-
 clone submodule
 
 ```sh
@@ -27,3 +26,4 @@ git submodules init
 ```sh
 git submodules update 
 ```
+then build excute file with CMake.
