@@ -1,7 +1,7 @@
 # TheEscape
-3D game made on opengl.
+3D game. 
 
-Written with C++
+Written with C++<br>
 dependency use glfw and stb
 
 Base on Legecy Opengl or Classic Opengl
