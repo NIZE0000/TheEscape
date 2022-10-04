@@ -36,7 +36,6 @@ float my;
 float deltatime;
 float lastFrame;
 
-// Player player;
 Camera camera;
 Scene scene;
 Map map;
@@ -150,7 +149,6 @@ void run(GLFWwindow *wnd)
 	cout << "Start runing the main loop..." << endl;
 	while (!glfwWindowShouldClose(wnd))
 	{
-
 		process_keys(wnd);
 		update(wnd);
 		render(wnd);
@@ -184,6 +182,7 @@ void process_keys(GLFWwindow *wnd)
 
 void update(GLFWwindow *wnd)
 {
+	//TODO 
 	double currentTime = glfwGetTime();
 	deltatime = currentTime - lastFrame;
 	lastFrame = currentTime;
@@ -224,6 +223,8 @@ void render(GLFWwindow *wnd)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	//TODO 
 
 	if (!scene.gameover && !scene.survive)
 	{
