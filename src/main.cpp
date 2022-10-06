@@ -47,7 +47,7 @@ void init_opengl(GLFWwindow *wnd)
 	glfwSetMouseButtonCallback(wnd, on_mouse_button_callback);
 
 	glfwSetWindowAspectRatio(wnd, 1, 1);
-	// glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// OpenGL states
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -228,8 +228,6 @@ int main()
 
 	// Enter main loop
 	run(gl_wnd);
-
-	// game.~Game();
 
 	// Done.
 	// system("PAUSE");

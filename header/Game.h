@@ -83,8 +83,6 @@ void Game::render3D()
 
     if (!this->scene.gameover && !this->scene.survive)
     {
-        glfwSetInputMode(this->wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
         this->camera.render();
         // camera.Debug(); // return log from class atrribute
 
@@ -92,6 +90,7 @@ void Game::render3D()
         this->ghost.render();
         // ghost.Debug(); // return log from class atrribute
     }
+    
 }
 
 void Game::update()
@@ -123,7 +122,7 @@ void Game::update()
     float dx, dy, dz;
     this->map.getDoorPos(&dx, &dy, &dz);
 
-    // scene check logic to show gameover or survive
+    // scene check logic to set gameover or survive
     this->scene.updateLogic(&cx, &cz,
                                 &gx, &gz,
                                 &dx, &dz);
