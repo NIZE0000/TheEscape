@@ -33,4 +33,5 @@ public:
     void chasePlayer(float *x, float *y, float *z);
     void render();
     void Debug();
+    void updateDeltatime(float Deltatime);
 };

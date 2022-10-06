@@ -2,18 +2,14 @@
 // Lib
 #include <pch.h>
 
-// Class
-#include <Map.h>
-#include <MiniMap.h>
-#include <Ghost.h>
-#include <Scene.h>
-#include <fps_camera.h>
+// main class
+#include <Game.h>
 
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 700
-#define SCREEN_HEIGHT 700
+#define SCREEN_WIDTH 512
+#define SCREEN_HEIGHT 512
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
 
@@ -36,14 +32,10 @@ float my;
 float deltatime;
 float lastFrame;
 
-Camera camera;
-Scene scene;
-Map map;
-MiniMap minimap;
-Ghost ghost;
-
 bool firstMouse = true;
 float lastX = CANVAS_WIDTH / 2, lastY = CANVAS_HEIGHT / 2;
+
+Game game;
 
 void init_opengl(GLFWwindow *wnd)
 {
@@ -55,7 +47,7 @@ void init_opengl(GLFWwindow *wnd)
 	glfwSetMouseButtonCallback(wnd, on_mouse_button_callback);
 
 	glfwSetWindowAspectRatio(wnd, 1, 1);
-	glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	// glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// OpenGL states
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -134,14 +126,14 @@ static void on_resize_callback(GLFWwindow *window, int width, int height)
 
 void on_mouse_position_callback(GLFWwindow *window, double x, double y)
 {
-	// cout << "on_mouse_callback : " << x << ", " << y << endl;
+	cout << "on_mouse_callback : " << x << ", " << y << endl;
 	mx = x;
 	my = CANVAS_HEIGHT - y;
 }
 
 void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
-	// cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
+	cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
 }
 
 void run(GLFWwindow *wnd)
@@ -157,8 +149,12 @@ void run(GLFWwindow *wnd)
 
 void process_keys(GLFWwindow *wnd)
 {
-	// Process keyboard
-	camera.ProcessKeyboard(wnd);
+	double currentTime = glfwGetTime();
+	deltatime = currentTime - lastFrame;
+	lastFrame = currentTime;
+
+	game.setDeltatime(deltatime);
+	game.setMousePosition(mx, my);
 
 	if (firstMouse)
 	{
@@ -171,49 +167,18 @@ void process_keys(GLFWwindow *wnd)
 	float yoffset = -my + lastY;
 	lastX = mx;
 	lastY = my;
-	if (xoffset == 512 || yoffset == -256)
+	if (xoffset == CANVAS_WIDTH || yoffset == -CANVAS_HEIGHT / 2)
 	{
 		xoffset = 0;
 		yoffset = 0;
 	}
 
-	camera.ProcessMouseMovement(xoffset, yoffset, GL_TRUE);
+	game.ProcessMouseMovement(xoffset, yoffset, GL_TRUE);
 }
 
 void update(GLFWwindow *wnd)
 {
-	//TODO 
-	double currentTime = glfwGetTime();
-	deltatime = currentTime - lastFrame;
-	lastFrame = currentTime;
-
-	camera.deltatime = deltatime;
-	ghost.deltatime = deltatime;
-
-	// get player position to draw
-	float cx, cy, cz;
-	camera.getPosition(&cx, &cy, &cz);
-
-	bool check = map.checkCollision(&cx, &cy, &cz);
-	camera.updateCollision(check);
-
-	minimap.updatePosition(&cx, &cy, &cz, G);
-
-	ghost.chasePlayer(&cx, &cy, &cz);
-
-	// get ghost position to draw
-	float gx, gy, gz;
-	ghost.getPosition(&gx, &gy, &gz);
-	minimap.updatePosition(&gx, &gy, &gz, R);
-
-	// get door position
-	float dx, dy, dz;
-	map.getDoorPos(&dx, &dy, &dz);
-
-	// scene check logic to show gameover or survive
-	scene.updateLogic(&cx, &cz,
-					  &gx, &gz,
-					  &dx, &dz);
+	game.update();
 }
 
 void render(GLFWwindow *wnd)
@@ -222,40 +187,14 @@ void render(GLFWwindow *wnd)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
+
 	glLoadIdentity();
+	set_3D_projection();
+	game.render3D();
 
-	//TODO 
-
-	if (!scene.gameover && !scene.survive)
-	{
-		// 3D section
-		set_3D_projection();
-
-		// camera or player
-		camera.render();
-		// camera.Debug(); // return log from class atrribute
-
-		// render map
-		map.render();
-		ghost.render();
-		// ghost.Debug(); // return log from class atrribute
-
-		// 2D section
-		glLoadIdentity();
-		set_2D_projection();
-		minimap.render();
-	}
-	else
-	{
-		map.~Map();
-		ghost.~Ghost();
-		camera.~Camera();
-		
-		// scene.~Scene();
-	}
-	
+	glLoadIdentity();
 	set_2D_projection();
-	scene.render();
+	game.render2D();
 
 	glfwSwapBuffers(wnd);
 	glfwPollEvents();
@@ -283,29 +222,12 @@ int main()
 
 	// Initialize OpenGL's states
 	init_opengl(gl_wnd);
-	srand(time(NULL));
 
-	// load texture
-	map.loadTexture();
-	ghost.loadTexture();
-	scene.loadTexture();
-
-	// set position
-	map.setDoorPos(-255.0, 0.0, 210.0);
-	map.setDoorRot(180.0);
-
-	camera.setPosition(-230.0, 0.0, -220.0);
-	camera.setDegree(0.0, rand()%360, 0.0);
-
-	ghost.setPosition(rand() % 250 - (rand() % 250), -20.0, rand() % 250 - (rand() % 250));
-	ghost.setDegree(0.0, 0.0, 0.0);
+	game.setWindow(gl_wnd);
+	game.loadTex();
 
 	// Enter main loop
 	run(gl_wnd);
-
-	map.~Map();
-	ghost.~Ghost();
-	scene.~Scene();
 
 	// Done.
 	// system("PAUSE");

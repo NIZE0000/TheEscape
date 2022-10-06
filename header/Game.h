@@ -1,68 +1,154 @@
 #pragma once
+
 #include <pch.h>
 
 #include <Map.h>
 #include <MiniMap.h>
 #include <Ghost.h>
-#include <Scene.h>
-#include <fps_camera.h>
+#include <MenuScene.h>
+#include <Camera.h>
 
 class Game
 {
 private:
     /* data */
     GLFWwindow *wnd;
+    Camera camera;
+    MenuScene menuscene;
+    Map map;
+    MiniMap minimap;
+    Ghost ghost;
+
+    float deltatime;
+    float mx, my;
 
 public:
-    Game(GLFWwindow *gl_wnd);
+    Game();
     ~Game();
-    ;
     void loadTex();
     void render3D();
     void render2D();
     void processKeys();
     void update();
+    void setDeltatime(float Deltatime);
+    void setMousePosition(float x, float y);
+    void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
+    void setWindow(GLFWwindow *gl_wnd);
 };
 
-Game::Game(GLFWwindow *gl_wnd)
+Game::Game()
 {
-    this->wnd = *gl_wnd;
+    srand(time(NULL));
+
+    this->menuscene.setWindow(this->wnd);
+
+    // set position
+    this->map.setDoorPos(-255.0, 0.0, 210.0);
+    this->map.setDoorRot(180.0);
+
+    this->camera.setPosition(-230.0, 0.0, -220.0);
+    this->camera.setDegree(0.0, -90, 0.0);
+    // this->camera.setDegree(0.0, rand() % 360, 0.0);
+
+    this->ghost.setPosition(rand() % 250 - (rand() % 250), -20.0, rand() % 250 - (rand() % 250));
+    this->ghost.setDegree(0.0, 0.0, 0.0);
 }
 
 Game::~Game()
 {
-    map.~Map();
-    ghost.~Ghost();
-    scene.~Scene();
+    this->map.~Map();
+    this->ghost.~Ghost();
+    this->menuscene.~MenuScene();
 }
 
 void Game::loadTex()
 {
-    map.loadTexture();
-    ghost.loadTexture();
-    scene.loadTexture();
+    this->map.loadTexture();
+    this->ghost.loadTexture();
+    this->menuscene.loadTexture();
 }
 
 void Game::render2D()
 {
-    minimap.render();
-    scene.render();
+    if (this->menuscene.gamestart)
+    {
+        this->minimap.render();
+    }
+    else
+    {
+        this->menuscene.render();
+    }
 }
 
 void Game::render3D()
 {
 
-    // camera or player
-    camera.render();
-    // camera.Debug(); // return log from class atrribute
+    if (this->menuscene.gamestart && !this->menuscene.gameover && !this->menuscene.survive)
+    {
+        glfwSetInputMode(this->wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    // render map
-    map.render();
-    
-    ghost.render();
-    // ghost.Debug(); // return log from class atrribute
+        this->camera.render();
+        // camera.Debug(); // return log from class atrribute
+
+        this->map.render();
+        this->ghost.render();
+        // ghost.Debug(); // return log from class atrribute
+    }
 }
 
 void Game::update()
 {
+    this->camera.updateDeltatime(this->deltatime);
+    this->ghost.updateDeltatime(this->deltatime);
+
+    this->menuscene.updateMouse(this->mx, this->my);
+
+    // Process keyboard
+    this->camera.ProcessKeyboard(this->wnd);
+
+    // get player position to draw
+    float cx, cy, cz;
+    this->camera.getPosition(&cx, &cy, &cz);
+
+    bool check = map.checkCollision(&cx, &cy, &cz);
+    this->camera.updateCollision(check);
+
+    this->minimap.updatePosition(&cx, &cy, &cz, G);
+
+    this->ghost.chasePlayer(&cx, &cy, &cz);
+
+    // get ghost position to draw
+    float gx, gy, gz;
+    this->ghost.getPosition(&gx, &gy, &gz);
+    this->minimap.updatePosition(&gx, &gy, &gz, R);
+
+    // get door position
+    float dx, dy, dz;
+    this->map.getDoorPos(&dx, &dy, &dz);
+
+    // scene check logic to show gameover or survive
+    this->menuscene.updateLogic(&cx, &cz,
+                                &gx, &gz,
+                                &dx, &dz);
+}
+
+void Game::setDeltatime(float Deltatime)
+{
+    this->deltatime = Deltatime;
+}
+
+void Game::setMousePosition(float x, float y)
+{
+    this->mx = x;
+    this->my = y;
+}
+
+void Game::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
+{
+    this->camera.ProcessMouseMovement(xoffset, yoffset, constrainPitch);
+}
+
+void Game::setWindow(GLFWwindow *gl_wnd)
+{
+    this->wnd = gl_wnd;
 }

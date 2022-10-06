@@ -75,7 +75,7 @@ void Ghost::chasePlayer(float *x, float *y, float *z)
 
     float velocity = MovementSpeed * deltaTime;
 
-    // get player position and chasing
+    // get player position and chase
     float d, dx, dz;
 
     dx = (*x - this->pos[0]);
@@ -90,22 +90,25 @@ void Ghost::chasePlayer(float *x, float *y, float *z)
         this->pos[2] += this->dir[2] * velocity;
     }
 
-    if (this->dir[0] > dx / d && this->dir[2] > dz / d) // >>
+    float cosValue = dx / d;
+    float sinValue = dz / d;
+
+    if (this->dir[0] > cosValue && this->dir[2] > sinValue) // >>
     {
         this->rot[1] -= speedRot;
         return;
     }
-    if (this->dir[0] > dx / d && this->dir[2] < dz / d) // ><
+    if (this->dir[0] > cosValue && this->dir[2] < sinValue) // ><
     {
         this->rot[1] += speedRot;
         return;
     }
-    if (this->dir[0]<dx / d &&this->dir[2]> dz / d) //<>
+    if (this->dir[0]< cosValue &&this->dir[2]> sinValue) //<>
     {
         this->rot[1] += speedRot;
         return;
     }
-    if (this->dir[0] < dx / d && this->dir[2] < dz / d) //<<
+    if (this->dir[0] < cosValue && this->dir[2] < sinValue) //<<
     {
         this->rot[1] -= speedRot;
         return;
@@ -128,6 +131,11 @@ void Ghost::update()
     glRotatef(this->rot[0], 1.0, 0.0, 0.0);
     glRotatef(this->rot[1] - 90, 0.0, 1.0, 0.0);
     glRotatef(this->rot[2] - 180, 0.0, 0.0, 1.0);
+}
+
+void Ghost::updateDeltatime(float Deltatime)
+{
+    this->deltatime = Deltatime;
 }
 
 void Ghost::Debug()
