@@ -5,7 +5,7 @@
 #include <Map.h>
 #include <MiniMap.h>
 #include <Ghost.h>
-#include <MenuScene.h>
+#include <Scene.h>
 #include <Camera.h>
 
 class Game
@@ -14,7 +14,7 @@ private:
     /* data */
     GLFWwindow *wnd;
     Camera camera;
-    MenuScene menuscene;
+    Scene scene;
     Map map;
     MiniMap minimap;
     Ghost ghost;
@@ -40,8 +40,6 @@ Game::Game()
 {
     srand(time(NULL));
 
-    this->menuscene.setWindow(this->wnd);
-
     // set position
     this->map.setDoorPos(-255.0, 0.0, 210.0);
     this->map.setDoorRot(180.0);
@@ -58,32 +56,32 @@ Game::~Game()
 {
     this->map.~Map();
     this->ghost.~Ghost();
-    this->menuscene.~MenuScene();
+    this->scene.~Scene();
 }
 
 void Game::loadTex()
 {
     this->map.loadTexture();
     this->ghost.loadTexture();
-    this->menuscene.loadTexture();
+    this->scene.loadTexture();
 }
 
 void Game::render2D()
 {
-    if (this->menuscene.gamestart)
+    if (!this->scene.gameover && !this->scene.survive)
     {
         this->minimap.render();
     }
     else
     {
-        this->menuscene.render();
+        this->scene.render();
     }
 }
 
 void Game::render3D()
 {
 
-    if (this->menuscene.gamestart && !this->menuscene.gameover && !this->menuscene.survive)
+    if (!this->scene.gameover && !this->scene.survive)
     {
         glfwSetInputMode(this->wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -101,7 +99,6 @@ void Game::update()
     this->camera.updateDeltatime(this->deltatime);
     this->ghost.updateDeltatime(this->deltatime);
 
-    this->menuscene.updateMouse(this->mx, this->my);
 
     // Process keyboard
     this->camera.ProcessKeyboard(this->wnd);
@@ -127,7 +124,7 @@ void Game::update()
     this->map.getDoorPos(&dx, &dy, &dz);
 
     // scene check logic to show gameover or survive
-    this->menuscene.updateLogic(&cx, &cz,
+    this->scene.updateLogic(&cx, &cz,
                                 &gx, &gz,
                                 &dx, &dz);
 }

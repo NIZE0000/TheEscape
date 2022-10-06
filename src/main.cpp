@@ -126,14 +126,14 @@ static void on_resize_callback(GLFWwindow *window, int width, int height)
 
 void on_mouse_position_callback(GLFWwindow *window, double x, double y)
 {
-	cout << "on_mouse_callback : " << x << ", " << y << endl;
+	// cout << "on_mouse_callback : " << x << ", " << y << endl;
 	mx = x;
 	my = CANVAS_HEIGHT - y;
 }
 
 void on_mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
-	cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
+	// cout << "on_mouse_button_callback : " << button << ", " << action << ", " << mods << endl;
 }
 
 void run(GLFWwindow *wnd)
@@ -228,6 +228,8 @@ int main()
 
 	// Enter main loop
 	run(gl_wnd);
+
+	// game.~Game();
 
 	// Done.
 	// system("PAUSE");
