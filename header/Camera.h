@@ -48,7 +48,6 @@ public:
 
     void ProcessKeyboard(GLFWwindow *wnd)
     {
-        // std::cout << this->collision << std::endl;
 
         if (this->collision) // Bullshit check
         {
@@ -143,12 +142,10 @@ public:
         this->dir[0] = -cos((rot[1] - 90) * DEG_TO_RED); // X
         this->dir[2] = -sin((rot[1] - 90) * DEG_TO_RED); // Z
 
-        // glPushMatrix();
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
         glRotatef(this->rot[1], 0.0, 1.0, 0.0);
         glRotatef(this->rot[2], 0.0, 0.0, 1.0);
         glTranslatef(this->pos[0], -this->pos[1], this->pos[2]);
-        // glPopMatrix;
     }
 
     // Processes input received from a mouse input.
