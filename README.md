@@ -21,10 +21,10 @@ git clone https://github.com/NicEKuN/TheEscape.git
 ```
 clone submodules
 ```sh
-git submodules init
+git submodule init
 ```
 ```sh
-git submodules update
+git submodule update
 ```
 then build execution file with CMake.
 
