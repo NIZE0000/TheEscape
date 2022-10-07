@@ -200,5 +200,6 @@ private:
 
     // Camera options
     float MovementSpeed;
+    
 };
 #endif

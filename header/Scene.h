@@ -115,8 +115,8 @@ void Scene::updateLogic(float *cx, float *cz,
                         float *dx, float *dz)
 {
 
-    float disDoor = sqrt(pow(*cx - *dx, 2) + pow(*cz - *dz, 2));
-    float disGhost = sqrt(pow(*cx - *gx, 2) + pow(*cz - *gz, 2));
+    float disDoor = (pow(*cx - *dx, 2) + pow(*cz - *dz, 2))/10;
+    float disGhost = (pow(*cx - *gx, 2) + pow(*cz - *gz, 2))/10;
 
     if (disDoor < 10 && !this->gameover) // player position == door
     {

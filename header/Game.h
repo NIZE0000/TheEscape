@@ -2,11 +2,11 @@
 
 #include <pch.h>
 
-#include <Map.h>
-#include <MiniMap.h>
-#include <Ghost.h>
-#include <Scene.h>
 #include <Camera.h>
+#include <Map.h>
+#include <Ghost.h>
+#include <MiniMap.h>
+#include <Scene.h>
 
 class Game
 {
@@ -84,11 +84,11 @@ void Game::render3D()
     if (!this->scene.gameover && !this->scene.survive)
     {
         this->camera.render();
-        // camera.Debug(); // return log from class atrribute
+        // camera.Debug(); // return log from class attribute
 
         this->map.render();
         this->ghost.render();
-        // ghost.Debug(); // return log from class atrribute
+        // ghost.Debug(); // return log from class attribute
     }
     
 }

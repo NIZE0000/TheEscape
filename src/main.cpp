@@ -8,8 +8,8 @@
 using namespace std;
 
 // Constants
-#define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 512
+#define SCREEN_WIDTH 700
+#define SCREEN_HEIGHT 700
 #define CANVAS_WIDTH 512
 #define CANVAS_HEIGHT 512
 
@@ -46,6 +46,7 @@ void init_opengl(GLFWwindow *wnd)
 	glfwSetCursorPosCallback(wnd, on_mouse_position_callback);
 	glfwSetMouseButtonCallback(wnd, on_mouse_button_callback);
 
+	//add 
 	glfwSetWindowAspectRatio(wnd, 1, 1);
 	glfwSetInputMode(wnd, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -154,6 +155,7 @@ void process_keys(GLFWwindow *wnd)
 	lastFrame = currentTime;
 
 	game.setDeltatime(deltatime);
+
 	game.setMousePosition(mx, my);
 
 	if (firstMouse)
