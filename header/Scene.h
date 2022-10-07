@@ -40,11 +40,11 @@ void Scene::loadTexture()
 {
     this->GAMEOVER.Image_Format = GL_RGBA;
     this->GAMEOVER.Internal_Format = GL_RGBA;
-    this->GAMEOVER.Generate("../assets/textures/GameOver.png", 1024, 1024);
+    this->GAMEOVER.Generate("../assets/textures/GameOver.png");
 
     this->SURVIVE.Image_Format = GL_RGBA;
     this->SURVIVE.Internal_Format = GL_RGBA;
-    this->SURVIVE.Generate("../assets/textures/Survive.png", 1024, 1024);
+    this->SURVIVE.Generate("../assets/textures/Survive.png");
 }
 
 void Scene::render()

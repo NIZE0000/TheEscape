@@ -9,9 +9,11 @@
 // It also hosts utility functions for easy management.
 class Texture2D
 {
-public:
+private:
     // Holds the ID of the texture object, used for all texture operations to reference to this particlar texture
     GLuint ID = rand();
+
+public:
     // Texture image dimensions
     GLuint Width, Height; // Width and height of loaded image in pixels
     // Texture Format
@@ -23,11 +25,10 @@ public:
     GLuint Filter_Min; // Filtering mode if texture pixels < screen pixels
     GLuint Filter_Max; // Filtering mode if texture pixels > screen pixels
 
-public:
     // Constructor (sets default texture modes)
     Texture2D();
     // Generates texture from image data
-    void Generate(const char *file, GLuint width, GLuint height);
+    void Generate(const char *file);
     // Delete texture
     void Delete();
 
@@ -42,15 +43,16 @@ Texture2D::Texture2D()
     glGenTextures(1, &this->ID);
 }
 
-void Texture2D::Generate(const char *file, GLuint width, GLuint height)
+void Texture2D::Generate(const char *file)
 {
     
-    this->Width = width;
-    this->Height = height;
+    
 
     // Load image
     int iw, ih, nrChannels;
     unsigned char *data = stbi_load(file, &iw, &ih, &nrChannels, 0);
+    this->Width = iw;
+    this->Height = ih;
     if (!data)
     {
         std::cout << "error: can't load image" << std::endl;
@@ -58,7 +60,7 @@ void Texture2D::Generate(const char *file, GLuint width, GLuint height)
 
     // Create Texture
     glBindTexture(GL_TEXTURE_2D, this->ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, width, height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, this->Width, this->Height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
     // Set Texture wrap and filter modes
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->Wrap_S);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->Wrap_T);

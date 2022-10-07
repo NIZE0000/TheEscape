@@ -139,8 +139,8 @@ public:
         }
 
         // calculate direction
-        this->dir[0] = -cos((rot[1] - 90) * DEG_TO_RED); // X
-        this->dir[2] = -sin((rot[1] - 90) * DEG_TO_RED); // Z
+        this->dir[0] = +cos((rot[1] + 90) * DEG_TO_RED); // X
+        this->dir[2] = +sin((rot[1] + 90) * DEG_TO_RED); // Z
 
         glRotatef(this->rot[0], 1.0, 0.0, 0.0);
         glRotatef(this->rot[1], 0.0, 1.0, 0.0);

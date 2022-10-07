@@ -79,10 +79,10 @@ Map::Map()
 
 void Map::loadTexture()
 {
-	this->ground.Generate("../assets/textures/ground.jpg", 512, 512);
-	this->wall.Generate("../assets/textures/wall.jpg", 500, 500);
+	this->ground.Generate("../assets/textures/ground.jpg");
+	this->wall.Generate("../assets/textures/wall.jpg");
 
-	this->door.Generate("../assets/textures/door.jpg", 512, 1024);
+	this->door.Generate("../assets/textures/door.jpg");
 }
 
 Map::~Map()
