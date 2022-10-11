@@ -17,7 +17,7 @@ How to build it?
 
 clone the repositiory
 ```sh
-git clone https://github.com/NicEKuN/TheEscape.git
+git clone --depth 1  https://github.com/NIZE2001/TheEscape.git
 ```
 clone submodules
 ```sh
@@ -26,5 +26,11 @@ git submodule init
 ```sh
 git submodule update
 ```
-then build execution file with CMake.
+
+or just use this command
+```
+git clone --depth 1 --recurse-submodules --shallow-submodules  https://github.com/NIZE2001/TheEscape.git
+```
+
+then build generator file with CMake.
 
