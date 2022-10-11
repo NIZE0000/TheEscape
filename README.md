@@ -27,7 +27,7 @@ git submodule init
 git submodule update
 ```
 <br>
-or just use this command
+or just use this command<br>
 ```
 git clone --depth 1 --recurse-submodules --shallow-submodules  https://github.com/NIZE2001/TheEscape.git
 ```
