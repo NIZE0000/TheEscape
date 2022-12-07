@@ -36,5 +36,7 @@ git clone --depth 1 --recurse-submodules --shallow-submodules  https://github.co
 then build generator file with CMake.
 
 -----
-![Screenshot from 2022-12-08 01-55-42](https://user-images.githubusercontent.com/41697381/206273673-7018498d-f55b-4cca-a03d-6713dabd878f.png)
+
+![Screenshot from 2022-12-08 01-55-42 (1)](https://user-images.githubusercontent.com/41697381/206274035-d8f6e9ea-9358-4ab6-9e48-b592f520d143.png)
+
 
