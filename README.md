@@ -17,7 +17,7 @@ How to build it?
 
 clone the repositiory
 ```sh
-git clone --depth 1  https://github.com/NIZE2001/TheEscape.git
+git clone --depth 1  https://github.com/NIZE0000/TheEscape.git
 ```
 clone submodules 
 ```sh
@@ -30,7 +30,7 @@ git submodule update
 
 or just use one command 
 ```sh
-git clone --depth 1 --recurse-submodules --shallow-submodules  https://github.com/NIZE2001/TheEscape.git
+git clone --depth 1 --recurse-submodules --shallow-submodules  https://github.com/NIZE0000/TheEscape.git
 ```
 
 then build generator file with CMake.
